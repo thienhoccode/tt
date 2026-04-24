@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danh mục sách - BookVerse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="header glass">
+      <a class="logo" href="index.html">📖 BookVerse</a>
+      <nav class="nav">
+        <a href="index.html">🏠 Trang chủ</a>
+        <a href="catalog.html" class="active">🛍️ Danh mục</a>
+        <a href="promotions.html">🎁 Khuyến mãi</a>
+        <a href="blog.html">📰 Blog</a>
+        <a href="login.html">👤 Đăng nhập</a>
+      </nav>
+      <div class="header-actions">
+        <a class="cart-btn" href="cart.html"
+          >🛒 Giỏ hàng <span id="cartCount">0</span></a
+        >
+      </div>
+    </header>
+
+    <main class="catalog-layout">
+      <aside class="filters card">
+        <h3>Bộ lọc đa chiều</h3>
+        <label
+          >Thể loại
+          <select id="genreFilter"></select>
+        </label>
+        <label
+          >Tác giả
+          <select id="authorFilter"></select>
+        </label>
+        <label
+          >Nhà xuất bản
+          <select id="publisherFilter"></select>
+        </label>
+        <label
+          >Giá tối đa (VND)
+          <input
+            id="priceFilter"
+            type="range"
+            min="50000"
+            max="500000"
+            step="10000"
+            value="500000"
+          />
+          <small id="priceValue">500.000</small>
+        </label>
+        <label
+          >Đánh giá sao
+          <select id="ratingFilter">
+            <option value="0">Tất cả</option>
+            <option value="5">5 sao</option>
+            <option value="4">Từ 4 sao</option>
+            <option value="3">Từ 3 sao</option>
+          </select>
+        </label>
+      </aside>
+
+      <section class="catalog-content">
+        <div class="catalog-tools card">
+          <div>
+            <label
+              >Sắp xếp
+              <select id="sortFilter">
+                <option value="popular">Phổ biến</option>
+                <option value="priceAsc">Giá tăng dần</option>
+                <option value="priceDesc">Giá giảm dần</option>
+                <option value="newest">Mới nhất</option>
+              </select>
+            </label>
+          </div>
+          <div class="view-toggle">
+            <button id="gridBtn" class="btn small primary">Grid</button>
+            <button id="listBtn" class="btn small">List</button>
+          </div>
+        </div>
+        <div id="catalogBooks" class="book-grid"></div>
+        <div id="catalogPagination" class="catalog-pagination"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <h4>📖 BookVerse</h4>
+          <p>
+            Kho sách đa thể loại, giá tốt mỗi ngày, giao nhanh và hỗ trợ tận
+            tâm.
+          </p>
+          <div class="social-row">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">i</a>
+            <a href="#" aria-label="YouTube">▶</a>
+          </div>
+        </div>
+        <div>
+          <h4>Liên kết nhanh</h4>
+          <div class="footer-links">
+            <a href="index.html">Trang chủ</a>
+            <a href="catalog.html">Danh mục sách</a>
+            <a href="promotions.html">Khuyến mãi</a>
+            <a href="search.html">Tìm kiếm</a>
+            <a href="blog.html">Blog review</a>
+            <a href="login.html">Đăng nhập</a>
+          </div>
+        </div>
+        <div>
+          <h4>Hỗ trợ khách hàng</h4>
+          <div class="footer-links">
+            <a href="#">Chính sách đổi trả</a>
+            <a href="#">Phương thức thanh toán</a>
+            <a href="#">Câu hỏi thường gặp</a>
+            <a href="cart.html">Theo dõi đơn hàng</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 BookVerse. All rights reserved.</div>
+    </footer>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/catalog.js"></script>
+  </body>
+</html>

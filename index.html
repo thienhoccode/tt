@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookVerse - Cửa hàng sách</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body class="home-page">
+    <header class="header glass">
+      <a class="logo" href="index.html">📖 BookVerse</a>
+      <nav class="nav">
+        <a href="index.html" class="active">🏠 Trang chủ</a>
+        <a href="catalog.html">🛍️ Danh mục</a>
+        <a href="promotions.html">🎁 Khuyến mãi</a>
+        <a href="blog.html">📰 Blog</a>
+        <a href="login.html">👤 Đăng nhập</a>
+      </nav>
+      <div class="header-actions">
+        <div class="search-box">
+          <input
+            id="globalSearch"
+            type="text"
+            placeholder="Tìm theo tên sách, tác giả, ISBN..."
+          />
+          <div id="searchSuggest" class="search-suggest"></div>
+        </div>
+        <a class="cart-btn" href="cart.html"
+          >🛒 Giỏ hàng <span id="cartCount">0</span></a
+        >
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <p class="pill">Nhà sách trực tuyến hiện đại</p>
+          <h1>Đọc sách hay mỗi ngày<br />Nhận ưu đãi mới mỗi tuần</h1>
+          <p>
+            Hàng ngàn đầu sách chất lượng, giao nhanh toàn quốc, theo dõi đơn
+            hàng realtime.
+          </p>
+          <div class="hero-cta">
+            <a href="catalog.html" class="btn primary">Mua ngay</a>
+            <a href="blog.html" class="btn">Khám phá blog</a>
+          </div>
+        </div>
+        <div class="hero-card float">
+          <h3>Flash Sale 48h</h3>
+          <p>Giảm tối đa 50% cho combo sách kỹ năng và kinh doanh.</p>
+          <small>Kết thúc sau: <span id="countdown">47:59:59</span></small>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>🔥 Sách nổi bật & Bestseller</h2>
+          <a href="catalog.html">Xem tất cả</a>
+        </div>
+        <p class="section-sub">
+          Tuyển chọn những đầu sách được mua nhiều và đánh giá cao trong tuần
+          này.
+        </p>
+        <div class="carousel-wrap">
+          <button
+            class="carousel-btn left"
+            data-target="featuredBooks"
+            aria-label="Cuộn trái"
+          >
+            ❮
+          </button>
+          <div id="featuredBooks" class="book-grid carousel-track"></div>
+          <button
+            class="carousel-btn right"
+            data-target="featuredBooks"
+            aria-label="Cuộn phải"
+          >
+            ❯
+          </button>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>✨ Danh mục phổ biến</h2>
+        </div>
+        <div class="category-icons">
+          <a href="catalog.html?genre=Văn+học">📚 Văn học</a>
+          <a href="catalog.html?genre=Kinh+tế">💼 Kinh tế</a>
+          <a href="catalog.html?genre=Khoa+học">🔬 Khoa học</a>
+          <a href="catalog.html?genre=Thiếu+nhi">🧸 Thiếu nhi</a>
+          <a href="catalog.html?genre=Tiểu+sử">🧠 Tiểu sử</a>
+          <a href="catalog.html?genre=Tâm+lý">💡 Tâm lý</a>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>🆕 Sách mới ra mắt</h2>
+        </div>
+        <p class="section-sub">
+          Khám phá các tựa sách mới nhất, cập nhật liên tục từ nhiều nhà xuất
+          bản.
+        </p>
+        <div class="carousel-wrap">
+          <button
+            class="carousel-btn left"
+            data-target="newBooks"
+            aria-label="Cuộn trái"
+          >
+            ❮
+          </button>
+          <div id="newBooks" class="book-grid carousel-track"></div>
+          <button
+            class="carousel-btn right"
+            data-target="newBooks"
+            aria-label="Cuộn phải"
+          >
+            ❯
+          </button>
+        </div>
+      </section>
+
+      <section class="section testimonials">
+        <div class="section-head">
+          <h2>💬 Khách hàng nói gì về BookVerse</h2>
+        </div>
+        <div id="reviews" class="review-grid"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <h4>📖 BookVerse</h4>
+          <p>
+            Nhà sách trực tuyến với hàng ngàn đầu sách hay, giao nhanh toàn quốc
+            và nhiều ưu đãi hấp dẫn mỗi tuần.
+          </p>
+          <div class="social-row">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">i</a>
+            <a href="#" aria-label="YouTube">▶</a>
+          </div>
+        </div>
+        <div>
+          <h4>Liên kết nhanh</h4>
+          <div class="footer-links">
+            <a href="index.html">Trang chủ</a>
+            <a href="catalog.html">Danh mục sách</a>
+            <a href="promotions.html">Khuyến mãi</a>
+            <a href="search.html">Tìm kiếm</a>
+            <a href="blog.html">Blog review</a>
+            <a href="login.html">Đăng nhập</a>
+          </div>
+        </div>
+        <div>
+          <h4>Hỗ trợ khách hàng</h4>
+          <div class="footer-links">
+            <a href="#">Chính sách đổi trả</a>
+            <a href="#">Phương thức thanh toán</a>
+            <a href="#">Câu hỏi thường gặp</a>
+            <a href="cart.html">Theo dõi đơn hàng</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 BookVerse. All rights reserved.</div>
+    </footer>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

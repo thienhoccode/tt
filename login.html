@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập / Đăng ký - BookVerse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="header glass">
+      <a class="logo" href="index.html">📖 BookVerse</a>
+      <nav class="nav">
+        <a href="index.html">🏠 Trang chủ</a>
+        <a href="catalog.html">🛍️ Danh mục</a>
+        <a href="promotions.html">🎁 Khuyến mãi</a>
+        <a href="blog.html">📰 Blog</a>
+        <a href="login.html" class="active">👤 Đăng nhập</a>
+      </nav>
+    </header>
+
+    <main class="section">
+      <div class="auth-container">
+        <div id="loginForm" class="auth-form active">
+          <h2>Đăng nhập</h2>
+          <p>Chào mừng trở lại BookVerse</p>
+          <form>
+            <label for="loginEmail">Email</label>
+            <input type="email" id="loginEmail" required />
+
+            <label for="loginPassword">Mật khẩu</label>
+            <input type="password" id="loginPassword" required />
+
+            <button type="submit" class="btn primary">Đăng nhập</button>
+          </form>
+          <div class="auth-footer">
+            <a href="#" class="forgot-password">Quên mật khẩu?</a>
+            <p>
+              Chưa có tài khoản?
+              <a href="#" id="switchToRegister">Đăng ký ngay</a>
+            </p>
+          </div>
+        </div>
+
+        <div id="registerForm" class="auth-form">
+          <h2>Đăng ký</h2>
+          <p>Tạo tài khoản mới tại BookVerse</p>
+          <form>
+            <label for="registerName">Họ tên</label>
+            <input type="text" id="registerName" required />
+
+            <label for="registerEmail">Email</label>
+            <input type="email" id="registerEmail" required />
+
+            <label for="registerPassword">Mật khẩu</label>
+            <input type="password" id="registerPassword" required />
+
+            <label for="registerConfirmPassword">Xác nhận mật khẩu</label>
+            <input type="password" id="registerConfirmPassword" required />
+
+            <button type="submit" class="btn primary">Đăng ký</button>
+          </form>
+          <div class="auth-footer">
+            <p>Đã có tài khoản? <a href="#" id="switchToLogin">Đăng nhập</a></p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <h4>📖 BookVerse</h4>
+          <p>
+            Kho sách đa thể loại, giá tốt mỗi ngày, giao nhanh và hỗ trợ tận
+            tâm.
+          </p>
+          <div class="social-row">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">i</a>
+            <a href="#" aria-label="YouTube">▶</a>
+          </div>
+        </div>
+        <div>
+          <h4>Liên kết nhanh</h4>
+          <div class="footer-links">
+            <a href="index.html">Trang chủ</a>
+            <a href="catalog.html">Danh mục sách</a>
+            <a href="promotions.html">Khuyến mãi</a>
+            <a href="search.html">Tìm kiếm</a>
+            <a href="blog.html">Blog review</a>
+            <a href="login.html">Đăng nhập</a>
+          </div>
+        </div>
+        <div>
+          <h4>Hỗ trợ khách hàng</h4>
+          <div class="footer-links">
+            <a href="#">Chính sách đổi trả</a>
+            <a href="#">Phương thức thanh toán</a>
+            <a href="#">Câu hỏi thường gặp</a>
+            <a href="cart.html">Theo dõi đơn hàng</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 BookVerse. All rights reserved.</div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/auth.js"></script>
+  </body>
+</html>

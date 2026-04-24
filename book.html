@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi tiết sách - BookVerse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="header glass">
+      <a class="logo" href="index.html">📖 BookVerse</a>
+      <nav class="nav">
+        <a href="index.html">🏠 Trang chủ</a>
+        <a href="catalog.html">🛍️ Danh mục</a>
+        <a href="promotions.html">🎁 Khuyến mãi</a>
+        <a href="blog.html">📰 Blog</a>
+        <a href="login.html">👤 Đăng nhập</a>
+      </nav>
+      <div class="header-actions">
+        <a class="cart-btn" href="cart.html"
+          >🛒 Giỏ hàng <span id="cartCount">0</span></a
+        >
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="breadcrumb">
+        <a href="index.html">Trang chủ</a>
+        <span>/</span>
+        <a href="catalog.html">Danh mục</a>
+        <span>/</span>
+        <strong id="breadcrumbTitle">Chi tiết sách</strong>
+      </div>
+
+      <div class="book-detail modern-book">
+        <section class="book-media card">
+          <img id="bookCover" class="zoomable" alt="Book cover" />
+          <small>Di chuột để zoom ảnh bìa</small>
+          <button id="previewBtn" class="btn">Xem thử vài trang đầu</button>
+        </section>
+
+        <section class="book-info card">
+          <p class="pill">Sách chính hãng</p>
+          <h1 id="bookTitle"></h1>
+          <p id="bookMeta"></p>
+          <div id="bookRating" class="stars"></div>
+          <p id="bookDescription"></p>
+          <div id="bookTags" class="book-tags"></div>
+          <ul id="bookSpecs" class="book-spec-list"></ul>
+        </section>
+
+        <aside class="book-buy card">
+          <h3>Thông tin mua nhanh</h3>
+          <p id="bookPrice" class="price"></p>
+          <p class="stock-status">✅ Còn hàng • Giao trong 2-4 ngày</p>
+          <div class="detail-actions">
+            <button id="addToCartBtn" class="btn primary">
+              Thêm vào giỏ hàng
+            </button>
+            <a class="btn" href="cart.html">Mua ngay</a>
+          </div>
+          <div class="buy-benefits">
+            <p>🚚 Miễn phí giao hàng từ 199.000đ</p>
+            <p>🔄 Đổi trả trong 7 ngày</p>
+            <p>🎁 Tích điểm cho thành viên</p>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>💬 Bình luận người mua</h2>
+      </div>
+      <div id="bookComments" class="review-grid"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>📚 Sách liên quan</h2>
+        <a href="catalog.html">Xem thêm</a>
+      </div>
+      <div id="relatedBooks" class="book-grid"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>🎁 Ưu đãi đi kèm</h2>
+      </div>
+      <div class="card">
+        <div class="promo-inline">
+          <span>Mã BOOK10 giảm 10% cho đơn từ 300.000đ</span>
+          <a class="btn small" href="promotions.html">Xem thêm khuyến mãi</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <h4>📖 BookVerse</h4>
+          <p>
+            Kho sách đa thể loại, giá tốt mỗi ngày, giao nhanh và hỗ trợ tận
+            tâm.
+          </p>
+          <div class="social-row">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">i</a>
+            <a href="#" aria-label="YouTube">▶</a>
+          </div>
+        </div>
+        <div>
+          <h4>Liên kết nhanh</h4>
+          <div class="footer-links">
+            <a href="index.html">Trang chủ</a>
+            <a href="catalog.html">Danh mục sách</a>
+            <a href="promotions.html">Khuyến mãi</a>
+            <a href="search.html">Tìm kiếm</a>
+            <a href="blog.html">Blog review</a>
+            <a href="login.html">Đăng nhập</a>
+          </div>
+        </div>
+        <div>
+          <h4>Hỗ trợ khách hàng</h4>
+          <div class="footer-links">
+            <a href="#">Chính sách đổi trả</a>
+            <a href="#">Phương thức thanh toán</a>
+            <a href="#">Câu hỏi thường gặp</a>
+            <a href="cart.html">Theo dõi đơn hàng</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 BookVerse. All rights reserved.</div>
+    </footer>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/book.js"></script>
+  </body>
+</html>

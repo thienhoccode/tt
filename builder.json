@@ -1,0 +1,178 @@
+{
+  "project": {
+    "name": "BookVerse",
+    "description": "Import payload for Builder.io -> Figma workflow",
+    "version": "1.0.0",
+    "locale": "vi-VN"
+  },
+  "assets": {
+    "background": [
+      {
+        "id": "bg-library",
+        "name": "Library Background",
+        "type": "image",
+        "path": "img/background/library-bg.jpg"
+      }
+    ],
+    "products": [
+      {
+        "id": "book-9780374533557",
+        "name": "Tu Duy Nhanh Va Cham",
+        "type": "image",
+        "path": "img/products/9780374533557.jpg"
+      },
+      {
+        "id": "book-9780061122415",
+        "name": "Nha Gia Kim",
+        "type": "image",
+        "path": "img/products/9780061122415.jpg"
+      },
+      {
+        "id": "book-9780132350884",
+        "name": "Clean Code",
+        "type": "image",
+        "path": "img/products/9780132350884.jpg"
+      },
+      {
+        "id": "book-9781612680194",
+        "name": "Cha Giau Cha Ngheo",
+        "type": "image",
+        "path": "img/products/9781612680194.jpg"
+      },
+      {
+        "id": "book-9780590353427",
+        "name": "Harry Potter Va Hon Da Phu Thuy",
+        "type": "image",
+        "path": "img/products/9780590353427.jpg"
+      },
+      {
+        "id": "book-9781451648539",
+        "name": "Steve Jobs",
+        "type": "image",
+        "path": "img/products/9781451648539.jpg"
+      },
+      {
+        "id": "book-9780553380163",
+        "name": "Luoc Su Thoi Gian",
+        "type": "image",
+        "path": "img/products/9780553380163.jpg"
+      },
+      {
+        "id": "book-9780671027032",
+        "name": "Dac Nhan Tam",
+        "type": "image",
+        "path": "img/products/9780671027032.jpg"
+      },
+      {
+        "id": "book-9780735211292",
+        "name": "Atomic Habits",
+        "type": "image",
+        "path": "img/products/9780735211292.jpg"
+      },
+      {
+        "id": "book-9780064400558",
+        "name": "Charlottes Web",
+        "type": "image",
+        "path": "img/products/9780064400558.jpg"
+      },
+      {
+        "id": "book-9780062316097",
+        "name": "Sapiens Luoc Su Loai Nguoi",
+        "type": "image",
+        "path": "img/products/9780062316097.jpg"
+      },
+      {
+        "id": "book-9780134492513",
+        "name": "Principles of Marketing",
+        "type": "image",
+        "path": "img/products/9780134492513.jpg"
+      }
+    ],
+    "icons": [
+      {
+        "id": "icons-sprite",
+        "name": "UI Icons Sprite",
+        "type": "svg",
+        "path": "img/icons/icons.svg"
+      }
+    ]
+  },
+  "entries": [
+    {
+      "model": "page",
+      "name": "Trang chu",
+      "url": "/index.html",
+      "meta": {
+        "title": "BookVerse - Trang chu"
+      }
+    },
+    {
+      "model": "page",
+      "name": "Danh muc",
+      "url": "/catalog.html",
+      "meta": {
+        "title": "BookVerse - Danh muc sach"
+      }
+    },
+    {
+      "model": "page",
+      "name": "Chi tiet sach",
+      "url": "/book.html",
+      "meta": {
+        "title": "BookVerse - Chi tiet sach"
+      }
+    },
+    {
+      "model": "page",
+      "name": "Tim kiem",
+      "url": "/search.html",
+      "meta": {
+        "title": "BookVerse - Tim kiem"
+      }
+    },
+    {
+      "model": "page",
+      "name": "Gio hang",
+      "url": "/cart.html",
+      "meta": {
+        "title": "BookVerse - Gio hang va thanh toan"
+      }
+    },
+    {
+      "model": "page",
+      "name": "Khuyen mai",
+      "url": "/promotions.html",
+      "meta": {
+        "title": "BookVerse - Khuyen mai"
+      }
+    },
+    {
+      "model": "page",
+      "name": "Blog",
+      "url": "/blog.html",
+      "meta": {
+        "title": "BookVerse - Blog"
+      }
+    },
+    {
+      "model": "page",
+      "name": "Tai khoan",
+      "url": "/account.html",
+      "meta": {
+        "title": "BookVerse - Tai khoan"
+      }
+    },
+    {
+      "model": "page",
+      "name": "Dang nhap",
+      "url": "/login.html",
+      "meta": {
+        "title": "BookVerse - Dang nhap"
+      }
+    }
+  ],
+  "notes": {
+    "builderImportHint": "Use this JSON as source metadata and map each entry to Builder page model before sending to Figma plugin.",
+    "figmaHint": "For visual sync, ensure each page URL is reachable in Builder preview."
+  }
+}
