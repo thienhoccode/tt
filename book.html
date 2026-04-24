@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
@@ -15,8 +15,7 @@
   <body>
     <header class="header glass">
             <a class="logo" href="index.html" aria-label="BookVerse">
-        <img src="img/branding/bookverse-logo.svg" alt="BookVerse logo" />
-        <span class="logo-text">BookVerse</span>
+        <img src="img/branding/bookverse-logo.svg" alt="" />
       </a>
       <nav class="nav">
         <a href="index.html">🏠 Trang chủ</a>
@@ -26,6 +25,15 @@
         <a href="login.html">👤 Đăng nhập</a>
       </nav>
       <div class="header-actions">
+        <div class="search-box">
+          <input
+            id="globalSearch"
+            type="text"
+            placeholder="Tìm theo tên sách, tác giả, ISBN..."
+          />
+          <span class="search-icon">🔍</span>
+          <div id="searchSuggest" class="search-suggest"></div>
+        </div>
         <a class="cart-btn" href="cart.html"
           >🛒 Giỏ hàng <span id="cartCount">0</span></a
         >
@@ -53,6 +61,20 @@
           <h1 id="bookTitle"></h1>
           <p id="bookMeta"></p>
           <div id="bookRating" class="stars"></div>
+          <div class="book-highlights">
+            <article>
+              <strong id="bookSold">0</strong>
+              <span>Đã bán</span>
+            </article>
+            <article>
+              <strong id="bookPages">0</strong>
+              <span>Số trang</span>
+            </article>
+            <article>
+              <strong id="bookIsbn">-</strong>
+              <span>ISBN</span>
+            </article>
+          </div>
           <p id="bookDescription"></p>
           <div id="bookTags" class="book-tags"></div>
           <ul id="bookSpecs" class="book-spec-list"></ul>
@@ -62,13 +84,17 @@
           <h3>Thông tin mua nhanh</h3>
           <p id="bookPrice" class="price"></p>
           <p class="stock-status">✅ Còn hàng • Giao trong 2-4 ngày</p>
+          <div class="quick-shipping">
+            <span>🚚 Giao nhanh 2h nội thành</span>
+            <span>🔒 Thanh toán bảo mật</span>
+          </div>
           <div class="detail-actions">
             <button id="addToCartBtn" class="btn primary">
               Thêm vào giỏ hàng
             </button>
             <a class="btn" href="cart.html">Mua ngay</a>
           </div>
-          <div class="buy-benefits">
+          <div class="buy-benefits modern-benefits">
             <p>🚚 Miễn phí giao hàng từ 199.000đ</p>
             <p>🔄 Đổi trả trong 7 ngày</p>
             <p>🎁 Tích điểm cho thành viên</p>
@@ -147,4 +173,5 @@
     <script src="assets/js/book.js"></script>
   </body>
 </html>
+
 

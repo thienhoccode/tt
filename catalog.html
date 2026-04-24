@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
@@ -15,8 +15,7 @@
   <body>
     <header class="header glass">
             <a class="logo" href="index.html" aria-label="BookVerse">
-        <img src="img/branding/bookverse-logo.svg" alt="BookVerse logo" />
-        <span class="logo-text">BookVerse</span>
+        <img src="img/branding/bookverse-logo.svg" alt="" />
       </a>
       <nav class="nav">
         <a href="index.html">🏠 Trang chủ</a>
@@ -26,6 +25,15 @@
         <a href="login.html">👤 Đăng nhập</a>
       </nav>
       <div class="header-actions">
+        <div class="search-box">
+          <input
+            id="globalSearch"
+            type="text"
+            placeholder="Tìm theo tên sách, tác giả, ISBN..."
+          />
+          <span class="search-icon">🔍</span>
+          <div id="searchSuggest" class="search-suggest"></div>
+        </div>
         <a class="cart-btn" href="cart.html"
           >🛒 Giỏ hàng <span id="cartCount">0</span></a
         >
@@ -136,4 +144,5 @@
     <script src="assets/js/catalog.js"></script>
   </body>
 </html>
+
 

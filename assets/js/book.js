@@ -11,6 +11,9 @@ function initBookDetail() {
   document.querySelector("#bookDescription").textContent = book.description;
   document.querySelector("#bookRating").textContent = `${stars(book.rating)} ${book.rating}/5`;
   document.querySelector("#bookPrice").textContent = money(book.price);
+  document.querySelector("#bookSold").textContent = book.sold.toLocaleString("vi-VN");
+  document.querySelector("#bookPages").textContent = book.pages.toLocaleString("vi-VN");
+  document.querySelector("#bookIsbn").textContent = book.isbn;
   cover.src = book.cover;
   const tags = document.querySelector("#bookTags");
   if (tags) {

@@ -141,7 +141,7 @@ function initHome() {
   const reviews = document.querySelector("#reviews");
   if (!featured || !newer || !reviews) return;
 
-  const HOME_PRODUCT_LIMIT = 2;
+  const HOME_PRODUCT_LIMIT = 1;
   const bySold = [...BOOKS].sort((a, b) => b.sold - a.sold);
   const byNew = [...BOOKS].sort((a, b) => b.year - a.year);
   featured.innerHTML = bySold

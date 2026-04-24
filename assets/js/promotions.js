@@ -9,6 +9,7 @@ function initPromotions() {
   const flashWrap = document.querySelector("#flashSaleBooks");
   const comboWrap = document.querySelector("#comboBooks");
   if (!codeWrap || !flashWrap || !comboWrap) return;
+  const PROMO_BOOK_LIMIT = 4;
 
   codeWrap.innerHTML = PROMO_CODES.map(
     (c) => `
@@ -20,10 +21,14 @@ function initPromotions() {
     `,
   ).join("");
 
-  const flashBooks = [...BOOKS].sort((a, b) => b.rating - a.rating).slice(0, 6);
+  const flashBooks = [...BOOKS]
+    .sort((a, b) => b.rating - a.rating)
+    .slice(0, PROMO_BOOK_LIMIT);
   flashWrap.innerHTML = flashBooks.map((b) => bookCard(b)).join("");
 
-  const comboBooks = [...BOOKS].sort((a, b) => b.sold - a.sold).slice(3, 9);
+  const comboBooks = [...BOOKS]
+    .sort((a, b) => b.sold - a.sold)
+    .slice(3, 3 + PROMO_BOOK_LIMIT);
   comboWrap.innerHTML = comboBooks.map((b) => bookCard(b)).join("");
 }
 

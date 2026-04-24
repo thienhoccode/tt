@@ -20,7 +20,7 @@ function initCatalog() {
   const ratingFilter = document.querySelector("#ratingFilter");
   const sortFilter = document.querySelector("#sortFilter");
   const priceValue = document.querySelector("#priceValue");
-  const pageSize = 8;
+  const pageSize = 4;
   let currentPage = 1;
   const urlGenre = new URLSearchParams(window.location.search).get("genre");
   if (urlGenre) genreFilter.value = urlGenre.replaceAll("+", " ");
