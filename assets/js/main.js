@@ -141,7 +141,7 @@ function initHome() {
   const reviews = document.querySelector("#reviews");
   if (!featured || !newer || !reviews) return;
 
-  const HOME_PRODUCT_LIMIT = 3;
+  const HOME_PRODUCT_LIMIT = 2;
   const bySold = [...BOOKS].sort((a, b) => b.sold - a.sold);
   const byNew = [...BOOKS].sort((a, b) => b.year - a.year);
   featured.innerHTML = bySold
@@ -176,6 +176,7 @@ function initHome() {
 }
 
 function initCarousels() {
+  if (document.body.classList.contains("home-page")) return;
   const tracks = [...document.querySelectorAll(".carousel-track")];
   if (!tracks.length) return;
 

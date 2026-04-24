@@ -18,13 +18,7 @@ body {
   font-family: "Be Vietnam Pro", sans-serif;
   color: var(--text);
   background-color: #eaf1ff;
-  background:
-    radial-gradient(circle at 10% 16%, rgba(56, 189, 248, 0.35) 0, rgba(56, 189, 248, 0) 30%),
-    radial-gradient(circle at 90% 8%, rgba(129, 140, 248, 0.3) 0, rgba(129, 140, 248, 0) 28%),
-    radial-gradient(circle at 84% 88%, rgba(99, 102, 241, 0.22) 0, rgba(99, 102, 241, 0) 34%),
-    linear-gradient(180deg, rgba(248, 250, 255, 0.92), rgba(243, 246, 255, 0.94)),
-    url("../../img/background/library-bg.jpg")
-      center/cover fixed no-repeat;
+  background: url("../../img/background/library-bg-blue.jpg") center/cover fixed no-repeat;
   position: relative;
   overflow-x: hidden;
 }
