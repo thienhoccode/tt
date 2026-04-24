@@ -141,14 +141,15 @@ function initHome() {
   const reviews = document.querySelector("#reviews");
   if (!featured || !newer || !reviews) return;
 
+  const HOME_PRODUCT_LIMIT = 3;
   const bySold = [...BOOKS].sort((a, b) => b.sold - a.sold);
   const byNew = [...BOOKS].sort((a, b) => b.year - a.year);
   featured.innerHTML = bySold
-    .slice(0, 6)
+    .slice(0, HOME_PRODUCT_LIMIT)
     .map((book, idx) => homeBookCard(book, idx < 3 ? `Top ${idx + 1}` : "Bán chạy"))
     .join("");
   newer.innerHTML = byNew
-    .slice(0, 6)
+    .slice(0, HOME_PRODUCT_LIMIT)
     .map((book) => homeBookCard(book, "Mới"))
     .join("");
   reviews.innerHTML = REVIEWS.map(

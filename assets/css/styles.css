@@ -17,12 +17,13 @@ body {
   padding-top: 86px;
   font-family: "Be Vietnam Pro", sans-serif;
   color: var(--text);
+  background-color: #eaf1ff;
   background:
     radial-gradient(circle at 10% 16%, rgba(56, 189, 248, 0.35) 0, rgba(56, 189, 248, 0) 30%),
     radial-gradient(circle at 90% 8%, rgba(129, 140, 248, 0.3) 0, rgba(129, 140, 248, 0) 28%),
     radial-gradient(circle at 84% 88%, rgba(99, 102, 241, 0.22) 0, rgba(99, 102, 241, 0) 34%),
     linear-gradient(180deg, rgba(248, 250, 255, 0.92), rgba(243, 246, 255, 0.94)),
-    url("https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1800&q=60")
+    url("../../img/background/library-bg.jpg")
       center/cover fixed no-repeat;
   position: relative;
   overflow-x: hidden;
@@ -50,9 +51,20 @@ a {
   backdrop-filter: blur(10px);
 }
 .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-size: 1.3rem;
   font-weight: 800;
   color: var(--primary);
+}
+.logo img {
+  height: 34px;
+  width: auto;
+  display: block;
+}
+.logo-text {
+  letter-spacing: 0.2px;
 }
 .nav {
   display: flex;
@@ -191,6 +203,18 @@ main,
   align-items: center;
   box-shadow: var(--shadow);
   padding: 34px;
+}
+.hero-banner {
+  margin: 0 24px 8px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid #dbe4ff;
+  box-shadow: var(--shadow);
+}
+.hero-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 .pill {
   display: inline-block;
@@ -748,6 +772,9 @@ input {
   }
   .footer {
     margin: 24px 14px 16px;
+  }
+  .hero-banner {
+    margin: 0 14px 10px;
   }
   .search-page-tools {
     grid-template-columns: 1fr;
