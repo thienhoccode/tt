@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đăng Nhập / Đăng Ký — Tủ Sách Vàng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <style>
+    /* Specific styles for Auth Page */
+    .auth-layout {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--bg);
+    }
+    
+    .auth-visual {
+      position: relative;
+      background-image: url('img/hero1.png');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+      padding: 60px;
+    }
+    .auth-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(253,251,247,0.95), rgba(253,251,247,0.2));
+    }
+    .auth-visual__content {
+      position: relative;
+      z-index: 2;
+      max-width: 480px;
+    }
+    .auth-visual h2 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .auth-visual h2 em { color: var(--gold); font-style: italic; }
+    .auth-visual p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .auth-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px 10%;
+      position: relative;
+    }
+
+    .auth-back {
+      position: absolute;
+      top: 40px;
+      left: 10%;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+    .auth-back:hover { color: var(--gold); }
+
+    .auth-box {
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    
+    .auth-header { margin-bottom: 40px; text-align: center; }
+    .auth-header h1 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .auth-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+    .auth-tabs {
+      display: flex;
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 6px;
+      margin-bottom: 32px;
+    }
+    .auth-tab {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+    .auth-tab.active {
+      background: var(--bg-card);
+      color: var(--gold);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .auth-form { display: none; animation: fadeIn 0.4s ease; }
+    .auth-form.active { display: block; }
+
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+    }
+
+    .auth-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      font-size: 0.85rem;
+    }
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .remember-me input { accent-color: var(--gold); }
+    .forgot-pw { color: var(--gold); transition: var(--transition); }
+    .forgot-pw:hover { text-decoration: underline; }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 32px 0;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+    }
+    .auth-divider::before, .auth-divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid var(--border);
+    }
+    .auth-divider span { padding: 0 16px; }
+
+    .social-login {
+      display: flex;
+      gap: 16px;
+    }
+    .btn-social {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-social:hover {
+      background: var(--bg-card);
+      border-color: var(--text-muted);
+    }
+
+    @media (max-width: 900px) {
+      .auth-layout { grid-template-columns: 1fr; }
+      .auth-visual { display: none; }
+      .auth-panel { padding: 60px 24px; }
+      .auth-back { top: 20px; left: 24px; }
+    }
+  </style>
+</head>
+<body>
+<div id="toast-container" class="toast-container"></div>
+
+<div class="auth-layout">
+  <!-- Left Visual -->
+  <div class="auth-visual">
+    <div class="auth-visual__content aos-fade-up">
+      <h2>Bước Vào Thế Giới<br/><em>Tri Thức</em> Bất Tận</h2>
+      <p>Gia nhập Tủ Sách Vàng để quản lý đơn hàng, lưu trữ sách yêu thích và nhận những ưu đãi độc quyền dành riêng cho thành viên.</p>
+    </div>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="auth-panel">
+    <a href="index.html" class="auth-back">← Quay lại Trang Chủ</a>
+    
+    <div class="auth-box">
+      <div class="auth-header">
+        <a href="index.html" class="logo" style="justify-content:center;margin-bottom:24px;">
+          <span class="logo__icon">📚</span><span class="logo__text">Tủ Sách <em>Vàng</em></span>
+        </a>
+        <h1 id="auth-title">Đăng Nhập</h1>
+        <p id="auth-subtitle">Chào mừng bạn quay trở lại!</p>
+      </div>
+
+      <div class="auth-tabs">
+        <div class="auth-tab active" data-target="login">Đăng Nhập</div>
+        <div class="auth-tab" data-target="register">Đăng Ký</div>
+      </div>
+
+      <!-- Login Form -->
+      <form id="form-login" class="auth-form active">
+        <div class="form-group">
+          <label>Email của bạn</label>
+          <input type="email" placeholder="ví dụ: hello@tusachvang.vn" required />
+        </div>
+        <div class="form-group">
+          <label>Mật khẩu</label>
+          <input type="password" placeholder="••••••••" required />
+        </div>
+        <div class="auth-options">
+          <label class="remember-me">
+            <input type="checkbox" /> Ghi nhớ tôi
+          </label>
+          <a href="#" class="forgot-pw">Quên mật khẩu?</a>
+        </div>
+        <button type="submit" class="btn btn--gold btn--full" style="padding:16px;font-size:1.05rem;">Đăng Nhập</button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="form-register" class="auth-form">
+        <div class="form-group">
+          <label>Họ và tên</label>
+          <input type="text" placeholder="Nguyễn Văn A" required />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="ví dụ: hello@tusachvang.vn" required />
+        </div>
+        <div class="form-group">
+          <label>Mật khẩu</label>
+          <input type="password" placeholder="Tạo mật khẩu (tối thiểu 8 ký tự)" required minlength="8" />
+        </div>
+        <button type="submit" class="btn btn--gold btn--full" style="padding:16px;font-size:1.05rem;">Tạo Tài Khoản</button>
+        <p style="text-align:center;font-size:0.8rem;color:var(--text-dim);margin-top:16px;">
+          Bằng việc đăng ký, bạn đồng ý với <a href="#" style="color:var(--gold);">Điều khoản dịch vụ</a> và <a href="#" style="color:var(--gold);">Chính sách bảo mật</a> của chúng tôi.
+        </p>
+      </form>
+
+      <div class="auth-divider"><span>Hoặc tiếp tục với</span></div>
+
+      <div class="social-login">
+        <button class="btn-social">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.545 10.239v3.821h5.445c-.712 2.315-2.647 3.972-5.445 3.972-3.332 0-6.033-2.701-6.033-6.032s2.701-6.032 6.033-6.032c1.498 0 2.866.549 3.921 1.453l2.814-2.814C17.503 2.988 15.139 2 12.545 2 7.021 2 2.543 6.477 2.543 12s4.478 10 10.002 10c8.396 0 10.249-7.85 9.426-11.761h-9.426z"/></svg>
+          Google
+        </button>
+        <button class="btn-social">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          Facebook
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="js/cart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const tabs = document.querySelectorAll('.auth-tab');
+  const forms = document.querySelectorAll('.auth-form');
+  const title = document.getElementById('auth-title');
+  const subtitle = document.getElementById('auth-subtitle');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Reset active classes
+      tabs.forEach(t => t.classList.remove('active'));
+      forms.forEach(f => f.classList.remove('active'));
+      
+      // Set active
+      tab.classList.add('active');
+      const target = tab.dataset.target;
+      document.getElementById('form-' + target).classList.add('active');
+
+      // Change text
+      if (target === 'login') {
+        title.textContent = 'Đăng Nhập';
+        subtitle.textContent = 'Chào mừng bạn quay trở lại!';
+      } else {
+        title.textContent = 'Đăng Ký Tài Khoản';
+        subtitle.textContent = 'Bắt đầu hành trình tri thức cùng chúng tôi.';
+      }
+    });
+  });
+
+  // Mock Form Submit
+  document.getElementById('form-login').addEventListener('submit', (e) => {
+    e.preventDefault();
+    showToast('success', 'Đăng nhập thành công!', 'Đang chuyển hướng...');
+    setTimeout(() => { window.location.href = 'account.html'; }, 1500);
+  });
+
+  document.getElementById('form-register').addEventListener('submit', (e) => {
+    e.preventDefault();
+    showToast('success', 'Đăng ký thành công!', 'Chào mừng bạn đến với Tủ Sách Vàng.');
+    setTimeout(() => { window.location.href = 'account.html'; }, 1500);
+  });
+});
+</script>
+</body>
+</html>

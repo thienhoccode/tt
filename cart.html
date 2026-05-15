@@ -1,123 +1,171 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Giỏ hàng và thanh toán - BookVerse</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="assets/css/styles.css" />
-  </head>
-  <body>
-    <header class="header glass">
-      <a class="logo" href="index.html" aria-label="BookVerse">
-        <img src="img/branding/bookverse-logo.svg" alt="" />
-      </a>
-      <nav class="nav">
-        <a href="index.html">🏠 Trang chủ</a>
-        <a href="catalog.html">🛍️ Danh mục</a>
-        <a href="promotions.html">🎁 Khuyến mãi</a>
-        <a href="blog.html">📰 Blog</a>
-        <a href="login.html">👤 Đăng nhập</a>
-      </nav>
-      <div class="header-actions">
-        <div class="search-box">
-          <input
-            id="globalSearch"
-            type="text"
-            placeholder="Tìm theo tên sách, tác giả, ISBN..."
-          />
-          <span class="search-icon">🔍</span>
-          <div id="searchSuggest" class="search-suggest"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giỏ Hàng — Tủ Sách Vàng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+<div id="toast-container" class="toast-container"></div>
+<div id="search-overlay" class="search-overlay">
+  <div class="search-overlay__inner">
+    <div class="search-overlay__box">
+      <span class="search-overlay__icon">⌕</span>
+      <input type="text" id="search-input" placeholder="Tìm kiếm sách..." autocomplete="off" />
+      <button id="close-search">✕</button>
+    </div>
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
+
+<header id="main-header" class="header scrolled">
+  <div class="container header__inner">
+    <a href="index.html" class="logo"><span class="logo__icon">📚</span><span class="logo__text">Tủ Sách <em>Vàng</em></span></a>
+    <nav class="nav" id="main-nav">
+      <a href="index.html" class="nav__link">Trang Chủ</a>
+      <a href="catalog.html" class="nav__link">Danh Mục</a>
+      <a href="blog.html" class="nav__link">Blog Sách</a>
+      <a href="account.html" class="nav__link">Tài Khoản</a>
+    </nav>
+    <div class="header__actions">
+      <button id="search-btn" class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
+      <a href="account.html" class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div class="section-header" style="text-align:left;margin-top:120px;margin-bottom:32px;">
+      <span class="section-tag">Giỏ Hàng Của Bạn</span>
+      <h2>Sách Đã <em>Chọn</em></h2>
+    </div>
+
+    <div class="cart-page-layout">
+      <div class="cart-page-items" id="main-cart-items"></div>
+
+      <aside class="order-summary">
+        <h3>Tóm Tắt Đơn Hàng</h3>
+        <div class="summary-row"><span>Tạm tính</span><span id="summary-subtotal">0₫</span></div>
+        <div class="summary-row"><span>Giảm giá</span><span id="summary-discount" style="color:var(--accent);">-0₫</span></div>
+        <div class="summary-row"><span>Phí vận chuyển</span><span id="summary-shipping">30.000₫</span></div>
+        
+        <div class="coupon-form">
+          <input type="text" id="coupon-input" placeholder="Mã giảm giá" />
+          <button class="btn btn--outline" id="apply-coupon" style="padding:10px;">Áp dụng</button>
         </div>
-        <a class="cart-btn" href="cart.html"
-          >🛒 Giỏ hàng <span id="cartCount">0</span></a
-        >
-      </div>
-    </header>
 
-    <main class="section">
-      <h1>Giỏ hàng và thanh toán</h1>
-      <div class="stepper">
-        <span class="active">1. Giỏ hàng</span>
-        <span>2. Giao hàng</span>
-        <span>3. Thanh toán</span>
-      </div>
+        <div class="summary-row summary-row--total"><span>Tổng cộng</span><span id="summary-total" style="color:var(--gold);">0₫</span></div>
+        <a href="checkout.html" class="btn btn--gold btn--full" style="margin-top:24px;padding:16px;">Tiến Hành Thanh Toán</a>
+        <a href="catalog.html" style="display:block;text-align:center;margin-top:16px;color:var(--text-muted);font-size:0.85rem;">← Tiếp tục mua sách</a>
+      </aside>
+    </div>
+  </div>
+</main>
 
-      <div id="cartItems" class="card"></div>
+<footer class="footer" style="margin-top:80px;">
+  <div class="container">
+    <div class="footer__bottom">
+      <p>© 2025 Tủ Sách Vàng. Bảo lưu mọi quyền.</p>
+    </div>
+  </div>
+</footer>
 
-      <div class="checkout-grid">
-        <form id="shippingForm" class="card">
-          <h3>Thông tin giao hàng</h3>
-          <input required placeholder="Họ và tên" />
-          <input required placeholder="Số điện thoại" />
-          <input required placeholder="Địa chỉ nhận hàng" />
-          <input placeholder="Mã giảm giá (VD: BOOK10)" id="couponInput" />
-          <button type="button" class="btn" id="applyCouponBtn">
-            Áp dụng mã
-          </button>
-        </form>
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/search.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const header = document.getElementById('main-header');
+  window.addEventListener('scroll', () => header?.classList.toggle('scrolled', window.scrollY > 20));
 
-        <div class="card">
-          <h3>Phương thức thanh toán</h3>
-          <label><input type="radio" name="payment" checked /> 💰 COD</label>
-          <label><input type="radio" name="payment" /> 🏦 VNPAY</label>
-          <label><input type="radio" name="payment" /> 📱 MoMo</label>
-          <label><input type="radio" name="payment" /> 💳 Thẻ nội địa</label>
-          <label><input type="radio" name="payment" /> 🌍 Thẻ quốc tế</label>
-          <hr />
-          <p>Tạm tính: <strong id="subtotal">0 VND</strong></p>
-          <p>Giảm giá: <strong id="discount">0 VND</strong></p>
-          <p>Tổng cộng: <strong id="total">0 VND</strong></p>
-          <button id="placeOrderBtn" class="btn primary">Đặt hàng</button>
-        </div>
-      </div>
-    </main>
+  let discount = 0;
+  const shipping = 30000;
 
-    <footer class="footer">
-      <div class="footer-grid">
-        <div>
-          <h4>📖 BookVerse</h4>
-          <p>
-            Kho sách đa thể loại, giá tốt mỗi ngày, giao nhanh và hỗ trợ tận
-            tâm.
-          </p>
-          <div class="social-row">
-            <a href="#" aria-label="Facebook">f</a>
-            <a href="#" aria-label="Instagram">i</a>
-            <a href="#" aria-label="YouTube">▶</a>
+  function renderMainCart() {
+    const items = JSON.parse(localStorage.getItem('tsv_cart') || '[]');
+    const container = document.getElementById('main-cart-items');
+    
+    if (items.length === 0) {
+      container.innerHTML = `
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:60px 20px;text-align:center;">
+          <div style="font-size:4rem;margin-bottom:16px;">🛒</div>
+          <h3 style="font-family:var(--font-display);color:var(--text);font-size:1.4rem;margin-bottom:8px;">Giỏ hàng trống</h3>
+          <p style="color:var(--text-muted);margin-bottom:24px;">Bạn chưa chọn cuốn sách nào.</p>
+          <a href="catalog.html" class="btn btn--gold">Khám Phá Sách Ngay</a>
+        </div>`;
+      document.querySelector('.order-summary').style.display = 'none';
+      return;
+    }
+
+    document.querySelector('.order-summary').style.display = 'block';
+
+    container.innerHTML = items.map(item => {
+      const b = BOOKS.find(b => b.id === item.id);
+      if (!b) return '';
+      return `
+        <div class="cart-page-item">
+          <div class="cart-page-item__img">${b.emoji}</div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <a href="book-detail.html?id=${b.id}" style="font-family:var(--font-display);font-size:1.1rem;color:var(--text);">${b.title}</a>
+                <div style="font-size:0.85rem;color:var(--text-muted);margin-top:4px;">${b.author}</div>
+              </div>
+              <button onclick="removeMainCart(${b.id})" style="background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:1.2rem;">✕</button>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;">
+              <div class="book-detail__price-current" style="font-size:1.1rem;">${(b.price * item.qty).toLocaleString('vi-VN')}₫</div>
+              <div style="display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:4px;">
+                <button class="qty-btn" onclick="updateMainQty(${b.id},-1)" style="border:none;background:transparent;">−</button>
+                <span class="qty-num" style="min-width:30px;font-weight:600;">${item.qty}</span>
+                <button class="qty-btn" onclick="updateMainQty(${b.id},1)" style="border:none;background:transparent;">+</button>
+              </div>
+            </div>
           </div>
-        </div>
-        <div>
-          <h4>Liên kết nhanh</h4>
-          <div class="footer-links">
-            <a href="index.html">Trang chủ</a>
-            <a href="catalog.html">Danh mục sách</a>
-            <a href="promotions.html">Khuyến mãi</a>
-            <a href="search.html">Tìm kiếm</a>
-            <a href="blog.html">Blog review</a>
-            <a href="login.html">Đăng nhập</a>
-          </div>
-        </div>
-        <div>
-          <h4>Hỗ trợ khách hàng</h4>
-          <div class="footer-links">
-            <a href="#">Chính sách đổi trả</a>
-            <a href="#">Phương thức thanh toán</a>
-            <a href="#">Câu hỏi thường gặp</a>
-            <a href="cart.html">Theo dõi đơn hàng</a>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">© 2026 BookVerse. All rights reserved.</div>
-    </footer>
+        </div>`;
+    }).join('');
 
-    <script src="assets/js/data.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/cart.js"></script>
-  </body>
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const subtotal = Cart.getTotal();
+    document.getElementById('summary-subtotal').textContent = subtotal.toLocaleString('vi-VN') + '₫';
+    
+    // Free shipping logic
+    const finalShipping = subtotal > 299000 ? 0 : shipping;
+    document.getElementById('summary-shipping').textContent = finalShipping === 0 ? 'Miễn phí' : finalShipping.toLocaleString('vi-VN') + '₫';
+    if(finalShipping === 0) document.getElementById('summary-shipping').style.color = 'var(--accent-green)';
+    else document.getElementById('summary-shipping').style.color = 'var(--text)';
+
+    document.getElementById('summary-discount').textContent = '-' + discount.toLocaleString('vi-VN') + '₫';
+    
+    const total = Math.max(0, subtotal - discount + finalShipping);
+    document.getElementById('summary-total').textContent = total.toLocaleString('vi-VN') + '₫';
+  }
+
+  window.removeMainCart = (id) => { Cart.remove(id); renderMainCart(); };
+  window.updateMainQty = (id, delta) => { Cart.updateQty(id, delta); renderMainCart(); };
+
+  document.getElementById('apply-coupon')?.addEventListener('click', () => {
+    const code = document.getElementById('coupon-input').value.toUpperCase();
+    if(code === 'WELCOME') {
+      discount = 20000;
+      updateSummary();
+      showToast('success','Áp dụng mã thành công!','Giảm 20.000₫');
+    } else {
+      showToast('error','Mã không hợp lệ!','Vui lòng thử lại.');
+    }
+  });
+
+  renderMainCart();
+});
+</script>
+</body>
 </html>

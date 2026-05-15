@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chi Tiết Sách — Tủ Sách Vàng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+<div id="toast-container" class="toast-container"></div>
+<div id="cart-overlay" class="cart-overlay"></div>
+<aside id="mini-cart" class="mini-cart">
+  <div class="mini-cart__header"><h3>Giỏ Hàng</h3><button id="close-cart" class="mini-cart__close">✕</button></div>
+  <div id="cart-items" class="mini-cart__items"></div>
+  <div class="mini-cart__footer">
+    <div class="mini-cart__total"><span>Tổng cộng</span><span id="cart-total">0₫</span></div>
+    <a href="checkout.html" class="btn btn--primary btn--full">Thanh Toán</a>
+    <a href="cart.html" class="btn btn--outline btn--full">Xem Giỏ Hàng</a>
+  </div>
+</aside>
+<div id="search-overlay" class="search-overlay">
+  <div class="search-overlay__inner">
+    <div class="search-overlay__box">
+      <span class="search-overlay__icon">⌕</span>
+      <input type="text" id="search-input" placeholder="Tìm kiếm sách..." autocomplete="off" />
+      <button id="close-search">✕</button>
+    </div>
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
+
+<header id="main-header" class="header scrolled">
+  <div class="container header__inner">
+    <a href="index.html" class="logo"><span class="logo__icon">📚</span><span class="logo__text">Tủ Sách <em>Vàng</em></span></a>
+    <nav class="nav" id="main-nav">
+      <a href="index.html" class="nav__link">Trang Chủ</a>
+      <a href="catalog.html" class="nav__link active">Danh Mục</a>
+      <a href="blog.html" class="nav__link">Blog Sách</a>
+      <a href="account.html" class="nav__link">Tài Khoản</a>
+    </nav>
+    <div class="header__actions">
+      <button id="search-btn" class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
+      <button id="cart-btn" class="icon-btn cart-icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span id="cart-count" class="cart-count">0</span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <!-- BREADCRUMB -->
+    <nav style="padding:100px 0 0;font-size:0.82rem;color:var(--text-muted);display:flex;gap:8px;align-items:center;">
+      <a href="index.html" style="color:var(--text-muted);">Trang chủ</a> /
+      <a href="catalog.html" style="color:var(--text-muted);">Danh mục</a> /
+      <span id="breadcrumb-title" style="color:var(--gold);"></span>
+    </nav>
+
+    <!-- BOOK DETAIL -->
+    <div class="book-detail" id="book-detail-wrap">
+      <div class="book-detail__gallery">
+        <div class="book-cover-main" id="main-cover"></div>
+      </div>
+      <div class="book-detail__info" id="book-info"></div>
+    </div>
+
+    <!-- PREVIEW TAB -->
+    <div style="margin:0 0 60px;border-top:1px solid var(--border);padding-top:40px;">
+      <div style="display:flex;gap:24px;border-bottom:1px solid var(--border);margin-bottom:32px;" id="tabs">
+        <button class="tab-btn active" data-tab="desc" style="padding:12px 0;background:none;border:none;border-bottom:2px solid var(--gold);color:var(--gold);font-family:var(--font-body);font-size:0.9rem;cursor:pointer;font-weight:600;">Mô Tả</button>
+        <button class="tab-btn" data-tab="detail" style="padding:12px 0;background:none;border:none;border-bottom:2px solid transparent;color:var(--text-muted);font-family:var(--font-body);font-size:0.9rem;cursor:pointer;">Thông Tin Chi Tiết</button>
+        <button class="tab-btn" data-tab="reviews" style="padding:12px 0;background:none;border:none;border-bottom:2px solid transparent;color:var(--text-muted);font-family:var(--font-body);font-size:0.9rem;cursor:pointer;">Đánh Giá</button>
+      </div>
+      <div id="tab-desc" class="tab-panel">
+        <div id="book-long-desc" style="color:var(--text-muted);line-height:1.9;max-width:760px;font-size:0.95rem;"></div>
+      </div>
+      <div id="tab-detail" class="tab-panel" style="display:none;">
+        <div id="book-meta-table" style="max-width:500px;"></div>
+      </div>
+      <div id="tab-reviews" class="tab-panel" style="display:none;">
+        <div id="reviews-list" style="max-width:700px;"></div>
+        <div class="comment-form" style="max-width:700px;margin-top:24px;">
+          <h4>Viết Đánh Giá Của Bạn</h4>
+          <div style="display:flex;gap:4px;margin-bottom:16px;" id="star-picker">
+            <span style="font-size:1.5rem;cursor:pointer;color:var(--text-dim);" data-star="1">★</span>
+            <span style="font-size:1.5rem;cursor:pointer;color:var(--text-dim);" data-star="2">★</span>
+            <span style="font-size:1.5rem;cursor:pointer;color:var(--text-dim);" data-star="3">★</span>
+            <span style="font-size:1.5rem;cursor:pointer;color:var(--text-dim);" data-star="4">★</span>
+            <span style="font-size:1.5rem;cursor:pointer;color:var(--text-dim);" data-star="5">★</span>
+          </div>
+          <textarea rows="4" placeholder="Chia sẻ cảm nhận của bạn về cuốn sách..." style="width:100%;padding:12px 16px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font-body);font-size:0.9rem;resize:vertical;margin-bottom:12px;" id="review-text"></textarea>
+          <button class="btn btn--gold" id="submit-review">Gửi Đánh Giá</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RELATED BOOKS -->
+    <div style="margin-bottom:80px;">
+      <div class="section-header" style="text-align:left;margin-bottom:32px;">
+        <span class="section-tag">Gợi Ý</span>
+        <h2>Sách <em>Tương Tự</em></h2>
+      </div>
+      <div class="books-grid" id="related-grid" style="grid-template-columns:repeat(5,1fr);"></div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__bottom">
+      <p>© 2025 Tủ Sách Vàng. Bảo lưu mọi quyền.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/search.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  Cart.updateUI();
+  document.getElementById('cart-btn')?.addEventListener('click', Cart.openCart);
+  document.getElementById('close-cart')?.addEventListener('click', Cart.closeCart);
+  document.getElementById('cart-overlay')?.addEventListener('click', Cart.closeCart);
+
+  const params = new URLSearchParams(location.search);
+  const id = parseInt(params.get('id')) || 1;
+  const book = BOOKS.find(b => b.id === id) || BOOKS[0];
+
+  document.title = `${book.title} — Tủ Sách Vàng`;
+  document.getElementById('breadcrumb-title').textContent = book.title;
+
+  const disc = book.originalPrice ? Math.round((1 - book.price/book.originalPrice)*100) : 0;
+  const stars = '★'.repeat(Math.floor(book.rating)) + '☆'.repeat(5 - Math.floor(book.rating));
+
+  document.getElementById('main-cover').innerHTML = `<span style="font-size:8rem;">${book.emoji}</span>`;
+
+  document.getElementById('book-info').innerHTML = `
+    <div class="book-detail__cat">${book.cat}</div>
+    <h1 class="book-detail__title">${book.title}</h1>
+    <div class="book-detail__author">Tác giả: <strong style="color:var(--text);">${book.author}</strong></div>
+    <div class="book-detail__rating-row">
+      <span class="stars" style="font-size:1.1rem;">${stars}</span>
+      <span style="color:var(--gold);font-weight:600;">${book.rating}</span>
+      <span style="color:var(--text-muted);font-size:0.85rem;">(${book.reviews.toLocaleString()} đánh giá)</span>
+    </div>
+    <div class="book-detail__price-row">
+      <span class="book-detail__price-current">${book.price.toLocaleString('vi-VN')}₫</span>
+      ${book.originalPrice ? `<span class="book-detail__price-original">${book.originalPrice.toLocaleString('vi-VN')}₫</span>` : ''}
+      ${disc ? `<span class="book-detail__discount">-${disc}%</span>` : ''}
+    </div>
+    <p class="book-detail__desc">${book.description}</p>
+    <div class="book-detail__meta">
+      <div class="book-meta-item"><label>Thể Loại</label><span>${book.cat}</span></div>
+      <div class="book-meta-item"><label>Tác Giả</label><span>${book.author}</span></div>
+      <div class="book-meta-item"><label>Nhà Xuất Bản</label><span>NXB Trẻ</span></div>
+      <div class="book-meta-item"><label>Năm XB</label><span>2024</span></div>
+      <div class="book-meta-item"><label>Số Trang</label><span>320 trang</span></div>
+      <div class="book-meta-item"><label>Tình Trạng</label><span style="color:var(--accent-green);">Còn hàng</span></div>
+    </div>
+    <div class="book-detail__actions">
+      <button class="btn btn--gold" onclick="Cart.add(${book.id})" style="flex:2;">🛒 Thêm Vào Giỏ</button>
+      <button class="btn btn--outline" onclick="toggleWishlist(this,${book.id})" id="wishlist-btn">♡ Yêu Thích</button>
+    </div>
+    <div style="display:flex;gap:24px;margin-top:16px;font-size:0.82rem;color:var(--text-muted);">
+      <span>🚚 Miễn phí ship đơn &gt;299K</span>
+      <span>🔄 Đổi trả 7 ngày</span>
+      <span>🔒 Thanh toán an toàn</span>
+    </div>`;
+
+  document.getElementById('book-long-desc').innerHTML = `
+    <p>${book.description}</p>
+    <p style="margin-top:16px;">Cuốn sách này là một trong những tác phẩm đáng đọc nhất trong thể loại ${book.cat}. Với lối viết cuốn hút và nội dung sâu sắc, tác giả ${book.author} đã mang đến cho độc giả những trải nghiệm đọc sách thực sự đáng nhớ.</p>
+    <p style="margin-top:16px;">Từng trang sách là một hành trình khám phá, mỗi chương là một bài học quý giá về cuộc sống, con người và thế giới xung quanh chúng ta.</p>`;
+
+  const REVIEWS = [
+    { name:'Nguyễn Minh Tuấn', rating:5, text:'Cuốn sách tuyệt vời! Tôi đã đọc nó trong một ngày mà không thể dừng lại. Cốt truyện hấp dẫn và nhân vật rất chân thực.', date:'10/05/2025', avatar:'😊' },
+    { name:'Trần Thị Lan', rating:5, text:'Rất cảm ơn Tủ Sách Vàng đã giao hàng nhanh và sách còn rất mới. Nội dung sách cũng đúng như kỳ vọng, recommend cho mọi người!', date:'05/05/2025', avatar:'🌸' },
+    { name:'Lê Hoàng Nam', rating:4, text:'Sách hay, giá hợp lý. Đóng gói cẩn thận. Chỉ tiếc là giao hơi chậm một chút nhưng nhìn chung là hài lòng.', date:'28/04/2025', avatar:'📚' },
+  ];
+
+  document.getElementById('reviews-list').innerHTML = REVIEWS.map(r => `
+    <div class="review-card">
+      <div class="review-card__header">
+        <div class="review-avatar">${r.avatar}</div>
+        <div>
+          <div class="review-card__name">${r.name}</div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <span style="color:var(--gold);font-size:0.85rem;">${'★'.repeat(r.rating)}</span>
+            <span class="review-card__date">${r.date}</span>
+          </div>
+        </div>
+      </div>
+      <p class="review-card__text">${r.text}</p>
+    </div>`).join('');
+
+  // Star picker
+  let selectedStar = 0;
+  document.querySelectorAll('#star-picker span').forEach(s => {
+    s.addEventListener('click', () => {
+      selectedStar = parseInt(s.dataset.star);
+      document.querySelectorAll('#star-picker span').forEach((st, i) => {
+        st.style.color = i < selectedStar ? 'var(--gold)' : 'var(--text-dim)';
+      });
+    });
+  });
+
+  document.getElementById('submit-review')?.addEventListener('click', () => {
+    const text = document.getElementById('review-text')?.value.trim();
+    if (!text || !selectedStar) { showToast('error','Vui lòng chọn sao và nhập nội dung!',''); return; }
+    showToast('success','✅ Cảm ơn bạn!','Đánh giá đã được gửi.');
+    document.getElementById('review-text').value = '';
+  });
+
+  // Tabs
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => { b.style.borderBottomColor='transparent'; b.style.color='var(--text-muted)'; });
+      document.querySelectorAll('.tab-panel').forEach(p => p.style.display='none');
+      btn.style.borderBottomColor = 'var(--gold)'; btn.style.color = 'var(--gold)';
+      document.getElementById('tab-' + btn.dataset.tab).style.display = 'block';
+    });
+  });
+
+  // Related books
+  const related = BOOKS.filter(b => b.id !== book.id && b.cat === book.cat).slice(0, 5);
+  const fallback = BOOKS.filter(b => b.id !== book.id).slice(0, 5);
+  const relatedBooks = related.length >= 3 ? related : fallback;
+  document.getElementById('related-grid').innerHTML = relatedBooks.map(b => `
+    <a href="book-detail.html?id=${b.id}" class="book-card" style="cursor:pointer;">
+      <div class="book-card__cover-wrap" style="height:200px;">
+        <div class="book-card__cover-inner"><div class="book-card__img">${b.emoji}</div></div>
+        <div class="book-card__shadow"></div>
+        <div class="book-card__actions">
+          <button class="btn btn--gold" onclick="event.preventDefault();Cart.add(${b.id})">+ Giỏ</button>
+        </div>
+      </div>
+      <div class="book-card__info">
+        <span class="book-card__cat">${b.cat}</span>
+        <div class="book-card__title">${b.title}</div>
+        <div class="price-current">${b.price.toLocaleString('vi-VN')}₫</div>
+      </div>
+    </a>`).join('');
+
+  const wishlist = JSON.parse(localStorage.getItem('tsv_wishlist') || '[]');
+  window.toggleWishlist = (btn, id) => {
+    const idx = wishlist.indexOf(id);
+    if (idx === -1) { wishlist.push(id); btn.textContent = '♥ Đã Yêu Thích'; showToast('info','❤️ Đã thêm yêu thích!',''); }
+    else { wishlist.splice(idx,1); btn.textContent = '♡ Yêu Thích'; }
+    localStorage.setItem('tsv_wishlist', JSON.stringify(wishlist));
+  };
+  if (wishlist.includes(book.id)) {
+    const wb = document.getElementById('wishlist-btn');
+    if (wb) wb.textContent = '♥ Đã Yêu Thích';
+  }
+});
+</script>
+</body>
+</html>

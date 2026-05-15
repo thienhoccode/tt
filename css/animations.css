@@ -1,0 +1,40 @@
+@keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes shimmer { to { background-position: -200% 0; } }
+@keyframes marquee { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+@keyframes slideInRight { from { transform:translateX(100%); } to { transform:translateX(0); } }
+@keyframes slideOutRight { from { transform:translateX(0); } to { transform:translateX(100%); } }
+@keyframes toastIn { from { opacity:0; transform:translateX(120%); } to { opacity:1; transform:translateX(0); } }
+@keyframes toastOut { from { opacity:1; transform:translateX(0); } to { opacity:0; transform:translateX(120%); } }
+@keyframes pulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.08); } }
+@keyframes spin { to { transform:rotate(360deg); } }
+@keyframes float { 0%,100% { transform:translateY(0px); } 50% { transform:translateY(-8px); } }
+
+/* AOS-like scroll animations */
+.aos-fade-up { opacity:0; transform:translateY(32px); transition:opacity 0.6s ease, transform 0.6s ease; transition-delay: var(--delay,0s); }
+.aos-fade-up.visible { opacity:1; transform:translateY(0); }
+.aos-fade-in { opacity:0; transition:opacity 0.7s ease; transition-delay: var(--delay,0s); }
+.aos-fade-in.visible { opacity:1; }
+.aos-scale { opacity:0; transform:scale(0.92); transition:opacity 0.6s ease, transform 0.6s ease; }
+.aos-scale.visible { opacity:1; transform:scale(1); }
+
+/* Mini cart */
+.mini-cart { transform:translateX(100%); }
+.mini-cart.open { transform:translateX(0); animation:slideInRight 0.4s cubic-bezier(0.4,0,0.2,1); }
+
+/* Toast */
+.toast { animation:toastIn 0.4s cubic-bezier(0.4,0,0.2,1) forwards; }
+.toast.out { animation:toastOut 0.4s cubic-bezier(0.4,0,0.2,1) forwards; }
+
+/* Search overlay */
+.search-overlay { opacity:0; pointer-events:none; transition:opacity 0.3s; }
+.search-overlay.open { opacity:1; pointer-events:all; }
+.search-overlay__box { transform:translateY(-20px); transition:transform 0.3s; }
+.search-overlay.open .search-overlay__box { transform:translateY(0); }
+
+/* Cart icon pulse on add */
+.cart-icon-btn.pulse { animation:pulse 0.4s ease; }
+
+/* Wishlist heart */
+.book-card__wishlist { transition:color 0.2s, transform 0.2s; }
+.book-card__wishlist:active { transform:scale(1.3); }

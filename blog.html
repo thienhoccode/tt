@@ -1,93 +1,205 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blog và review sách - BookVerse</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="assets/css/styles.css" />
-  </head>
-  <body>
-    <header class="header glass">
-      <a class="logo" href="index.html" aria-label="BookVerse">
-        <img src="img/branding/bookverse-logo.svg" alt="" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog Sách — Tủ Sách Vàng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+<div id="toast-container" class="toast-container"></div>
+<div id="cart-overlay" class="cart-overlay"></div>
+<aside id="mini-cart" class="mini-cart">
+  <div class="mini-cart__header"><h3>Giỏ Hàng</h3><button id="close-cart" class="mini-cart__close">✕</button></div>
+  <div id="cart-items" class="mini-cart__items"></div>
+  <div class="mini-cart__footer">
+    <div class="mini-cart__total"><span>Tổng cộng</span><span id="cart-total">0₫</span></div>
+    <a href="checkout.html" class="btn btn--primary btn--full">Thanh Toán</a>
+    <a href="cart.html" class="btn btn--outline btn--full">Xem Giỏ Hàng</a>
+  </div>
+</aside>
+<div id="search-overlay" class="search-overlay">
+  <div class="search-overlay__inner">
+    <div class="search-overlay__box">
+      <span class="search-overlay__icon">⌕</span>
+      <input type="text" id="search-input" placeholder="Tìm kiếm sách..." autocomplete="off" />
+      <button id="close-search">✕</button>
+    </div>
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
+
+<header id="main-header" class="header scrolled">
+  <div class="container header__inner">
+    <a href="index.html" class="logo"><span class="logo__icon">📚</span><span class="logo__text">Tủ Sách <em>Vàng</em></span></a>
+    <nav class="nav" id="main-nav">
+      <a href="index.html" class="nav__link">Trang Chủ</a>
+      <a href="catalog.html" class="nav__link">Danh Mục</a>
+      <a href="blog.html" class="nav__link active">Blog Sách</a>
+      <a href="account.html" class="nav__link">Tài Khoản</a>
+    </nav>
+    <div class="header__actions">
+      <button id="search-btn" class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
+      <button id="cart-btn" class="icon-btn cart-icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span id="cart-count" class="cart-count">0</span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- List View -->
+  <div id="blog-list-view">
+    <div class="blog-hero">
+      <div class="container">
+        <h1>Góc <em>Điểm Sách</em></h1>
+        <p style="color:var(--text-muted);font-size:1.1rem;margin-top:16px;">Những bài viết, đánh giá và gợi ý sách mới nhất.</p>
+      </div>
+    </div>
+    <div class="container" style="padding:80px 24px;">
+      <div class="blog-grid" id="full-blog-grid"></div>
+    </div>
+  </div>
+
+  <!-- Detail View -->
+  <div id="blog-detail-view" style="display:none;">
+    <div class="blog-hero" style="padding-bottom:40px;">
+      <div class="container">
+        <span id="post-cat" style="color:var(--gold);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;"></span>
+        <h1 id="post-title" style="margin:16px 0;font-size:clamp(1.8rem, 4vw, 3rem);max-width:900px;margin-inline:auto;"></h1>
+        <div style="display:flex;justify-content:center;gap:16px;color:var(--text-muted);font-size:0.9rem;">
+          <span id="post-date"></span> • <span id="post-time"></span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="blog-post-content">
+      <div id="post-emoji" style="font-size:6rem;text-align:center;margin-bottom:40px;"></div>
+      <div id="post-body"></div>
+      
+      <div style="border-top:1px solid var(--border);margin-top:60px;padding-top:32px;">
+        <h3 style="font-family:var(--font-display);font-size:1.4rem;color:var(--text);margin-bottom:24px;">Bình Luận</h3>
+        
+        <div id="comments-list">
+          <div style="display:flex;gap:12px;margin-bottom:20px;">
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;">👤</div>
+            <div>
+              <div style="font-weight:600;font-size:0.9rem;color:var(--text);">Độc giả A <span style="font-weight:400;color:var(--text-dim);font-size:0.8rem;margin-left:8px;">1 ngày trước</span></div>
+              <div style="font-size:0.9rem;color:var(--text-muted);margin-top:4px;">Bài viết rất hay, mình đã mua sách đọc thử và không thất vọng!</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="comment-form">
+          <h4>Để lại bình luận</h4>
+          <textarea id="comment-text" rows="3" placeholder="Viết bình luận của bạn..." style="width:100%;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font-body);font-size:0.9rem;margin-bottom:12px;"></textarea>
+          <button class="btn btn--gold" onclick="addComment()">Gửi Bình Luận</button>
+        </div>
+      </div>
+      
+      <button class="btn btn--outline" style="margin-top:40px;" onclick="showList()">← Quay lại danh sách</button>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__bottom"><p>© 2025 Tủ Sách Vàng.</p></div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/search.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  Cart.updateUI();
+  document.getElementById('cart-btn')?.addEventListener('click', Cart.openCart);
+  document.getElementById('close-cart')?.addEventListener('click', Cart.closeCart);
+  document.getElementById('cart-overlay')?.addEventListener('click', Cart.closeCart);
+
+  const header = document.getElementById('main-header');
+  window.addEventListener('scroll', () => header?.classList.toggle('scrolled', window.scrollY > 20));
+
+  const params = new URLSearchParams(location.search);
+  const postId = params.get('id');
+
+  if (postId) {
+    showPost(parseInt(postId));
+  } else {
+    renderList();
+  }
+
+  function renderList() {
+    const grid = document.getElementById('full-blog-grid');
+    grid.innerHTML = BLOG_POSTS.map(p => `
+      <a href="?id=${p.id}" class="blog-card">
+        <div class="blog-card__img">${p.emoji}</div>
+        <div class="blog-card__body">
+          <span class="blog-card__cat">${p.cat}</span>
+          <h3 class="blog-card__title">${p.title}</h3>
+          <p class="blog-card__excerpt">${p.excerpt}</p>
+          <div class="blog-card__meta"><span>📅 ${p.date}</span><span>⏱ ${p.readTime}</span></div>
+        </div>
       </a>
-      <nav class="nav">
-        <a href="index.html">🏠 Trang chủ</a>
-        <a href="catalog.html">🛍️ Danh mục</a>
-        <a href="promotions.html">🎁 Khuyến mãi</a>
-        <a href="blog.html" class="active">📰 Blog</a>
-        <a href="login.html">👤 Đăng nhập</a>
-      </nav>
-      <div class="header-actions">
-        <div class="search-box">
-          <input
-            id="globalSearch"
-            type="text"
-            placeholder="Tìm theo tên sách, tác giả, ISBN..."
-          />
-          <span class="search-icon">🔍</span>
-          <div id="searchSuggest" class="search-suggest"></div>
-        </div>
-        <a class="cart-btn" href="cart.html"
-          >🛒 Giỏ hàng <span id="cartCount">0</span></a
-        >
-      </div>
-    </header>
+    `).join('');
+  }
 
-    <main class="section">
-      <h1>Blog & Review sách</h1>
-      <p>
-        Tối ưu SEO với bài viết chất lượng, thu hút độc giả quay lại thường
-        xuyên.
-      </p>
-      <div id="blogPosts" class="blog-grid"></div>
-    </main>
+  window.showPost = (id) => {
+    const post = BLOG_POSTS.find(p => p.id === id) || BLOG_POSTS[0];
+    document.title = `${post.title} — Blog Tủ Sách Vàng`;
+    document.getElementById('blog-list-view').style.display = 'none';
+    document.getElementById('blog-detail-view').style.display = 'block';
+    
+    document.getElementById('post-cat').textContent = post.cat;
+    document.getElementById('post-title').innerHTML = post.title;
+    document.getElementById('post-date').textContent = post.date;
+    document.getElementById('post-time').textContent = post.readTime;
+    document.getElementById('post-emoji').textContent = post.emoji;
 
-    <footer class="footer">
-      <div class="footer-grid">
+    // Fake content
+    document.getElementById('post-body').innerHTML = `
+      <p style="font-size:1.1rem;font-weight:500;color:var(--text);margin-bottom:24px;">${post.excerpt}</p>
+      <p>Có những cuốn sách đi qua cuộc đời ta như một cơn gió thoảng, nhưng cũng có những cuốn sách ở lại, cắm rễ sâu vào tâm hồn và vĩnh viễn thay đổi cách ta nhìn nhận thế giới. Trong bài viết này, chúng tôi muốn giới thiệu đến bạn những tựa sách mang sức mạnh như vậy.</p>
+      <h2>Tại sao chúng ta nên đọc sách mỗi ngày?</h2>
+      <p>Việc đọc không chỉ cung cấp tri thức mà còn là cách để ta đối thoại với những bộ óc vĩ đại nhất trong lịch sử. Nó giúp ta sống nhiều cuộc đời khác nhau, trải nghiệm những cảm xúc mà có thể ngoài đời thực ta chưa từng biết tới.</p>
+      <blockquote>"Một người không đọc sách chẳng hơn gì kẻ không biết đọc." - Mark Twain</blockquote>
+      <p>Hãy cùng điểm qua những cuốn sách đã được cộng đồng độc giả của Tủ Sách Vàng bình chọn là "must-read" trong năm nay...</p>
+    `;
+    window.scrollTo(0,0);
+  };
+
+  window.showList = () => {
+    window.history.pushState({}, '', 'blog.html');
+    document.title = `Blog Sách — Tủ Sách Vàng`;
+    document.getElementById('blog-list-view').style.display = 'block';
+    document.getElementById('blog-detail-view').style.display = 'none';
+    renderList();
+    window.scrollTo(0,0);
+  };
+
+  window.addComment = () => {
+    const input = document.getElementById('comment-text');
+    if (!input.value.trim()) return;
+    
+    const list = document.getElementById('comments-list');
+    const newComment = document.createElement('div');
+    newComment.innerHTML = `
+      <div style="display:flex;gap:12px;margin-bottom:20px;animation:fadeUp 0.4s forwards;">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;">👤</div>
         <div>
-          <h4>📖 BookVerse</h4>
-          <p>
-            Kho sách đa thể loại, giá tốt mỗi ngày, giao nhanh và hỗ trợ tận
-            tâm.
-          </p>
-          <div class="social-row">
-            <a href="#" aria-label="Facebook">f</a>
-            <a href="#" aria-label="Instagram">i</a>
-            <a href="#" aria-label="YouTube">▶</a>
-          </div>
-        </div>
-        <div>
-          <h4>Liên kết nhanh</h4>
-          <div class="footer-links">
-            <a href="index.html">Trang chủ</a>
-            <a href="catalog.html">Danh mục sách</a>
-            <a href="promotions.html">Khuyến mãi</a>
-            <a href="search.html">Tìm kiếm</a>
-            <a href="blog.html">Blog review</a>
-            <a href="login.html">Đăng nhập</a>
-          </div>
-        </div>
-        <div>
-          <h4>Hỗ trợ khách hàng</h4>
-          <div class="footer-links">
-            <a href="#">Chính sách đổi trả</a>
-            <a href="#">Phương thức thanh toán</a>
-            <a href="#">Câu hỏi thường gặp</a>
-            <a href="cart.html">Theo dõi đơn hàng</a>
-          </div>
+          <div style="font-weight:600;font-size:0.9rem;color:var(--text);">Bạn <span style="font-weight:400;color:var(--text-dim);font-size:0.8rem;margin-left:8px;">Vừa xong</span></div>
+          <div style="font-size:0.9rem;color:var(--text-muted);margin-top:4px;">${input.value}</div>
         </div>
       </div>
-      <div class="footer-bottom">© 2026 BookVerse. All rights reserved.</div>
-    </footer>
-
-    <script src="assets/js/data.js"></script>
-    <script src="assets/js/blog.js"></script>
-  </body>
+    `;
+    list.appendChild(newComment);
+    input.value = '';
+    showToast('success', 'Đã đăng bình luận!', '');
+  };
+});
+</script>
+</body>
 </html>

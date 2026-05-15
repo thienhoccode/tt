@@ -1,146 +1,291 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Danh mục sách - BookVerse</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="assets/css/styles.css" />
-  </head>
-  <body>
-    <header class="header glass">
-      <a class="logo" href="index.html" aria-label="BookVerse">
-        <img src="img/branding/bookverse-logo.svg" alt="" />
-      </a>
-      <nav class="nav">
-        <a href="index.html">🏠 Trang chủ</a>
-        <a href="catalog.html" class="active">🛍️ Danh mục</a>
-        <a href="promotions.html">🎁 Khuyến mãi</a>
-        <a href="blog.html">📰 Blog</a>
-        <a href="login.html">👤 Đăng nhập</a>
-      </nav>
-      <div class="header-actions">
-        <div class="search-box">
-          <input
-            id="globalSearch"
-            type="text"
-            placeholder="Tìm theo tên sách, tác giả, ISBN..."
-          />
-          <span class="search-icon">🔍</span>
-          <div id="searchSuggest" class="search-suggest"></div>
-        </div>
-        <a class="cart-btn" href="cart.html"
-          >🛒 Giỏ hàng <span id="cartCount">0</span></a
-        >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Danh Mục Sách — Tủ Sách Vàng</title>
+  <meta name="description" content="Khám phá hàng nghìn đầu sách theo thể loại, tác giả, giá cả. Lọc và tìm kiếm dễ dàng." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+<div id="toast-container" class="toast-container"></div>
+<div id="cart-overlay" class="cart-overlay"></div>
+<aside id="mini-cart" class="mini-cart">
+  <div class="mini-cart__header"><h3>Giỏ Hàng</h3><button id="close-cart" class="mini-cart__close">✕</button></div>
+  <div id="cart-items" class="mini-cart__items"></div>
+  <div class="mini-cart__footer">
+    <div class="mini-cart__total"><span>Tổng cộng</span><span id="cart-total">0₫</span></div>
+    <a href="checkout.html" class="btn btn--primary btn--full">Thanh Toán</a>
+    <a href="cart.html" class="btn btn--outline btn--full">Xem Giỏ Hàng</a>
+  </div>
+</aside>
+<div id="search-overlay" class="search-overlay">
+  <div class="search-overlay__inner">
+    <div class="search-overlay__box">
+      <span class="search-overlay__icon">⌕</span>
+      <input type="text" id="search-input" placeholder="Tìm kiếm sách..." autocomplete="off" />
+      <button id="close-search">✕</button>
+    </div>
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
+
+<header id="main-header" class="header scrolled">
+  <div class="container header__inner">
+    <a href="index.html" class="logo"><span class="logo__icon">📚</span><span class="logo__text">Tủ Sách <em>Vàng</em></span></a>
+    <nav class="nav" id="main-nav">
+      <a href="index.html" class="nav__link">Trang Chủ</a>
+      <a href="catalog.html" class="nav__link active">Danh Mục</a>
+      <a href="blog.html" class="nav__link">Blog Sách</a>
+      <a href="account.html" class="nav__link">Tài Khoản</a>
+    </nav>
+    <div class="header__actions">
+      <button id="search-btn" class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
+      <a href="account.html" class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+      <button id="cart-btn" class="icon-btn cart-icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span id="cart-count" class="cart-count">0</span></button>
+      <button id="menu-toggle" class="icon-btn menu-toggle"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container catalog-layout">
+    <!-- SIDEBAR -->
+    <aside class="filters-sidebar">
+      <div class="filter-group">
+        <h4>Thể Loại</h4>
+        <label class="filter-option"><input type="checkbox" id="f-van-hoc" value="Văn Học" /><label for="f-van-hoc">Văn Học</label><span class="count">1,240</span></label>
+        <label class="filter-option"><input type="checkbox" id="f-kinh-te" value="Kinh Tế" /><label for="f-kinh-te">Kinh Tế</label><span class="count">850</span></label>
+        <label class="filter-option"><input type="checkbox" id="f-tam-ly" value="Tâm Lý Học" /><label for="f-tam-ly">Tâm Lý Học</label><span class="count">420</span></label>
+        <label class="filter-option"><input type="checkbox" id="f-khoa-hoc" value="Khoa Học" /><label for="f-khoa-hoc">Khoa Học</label><span class="count">640</span></label>
+        <label class="filter-option"><input type="checkbox" id="f-thieu-nhi" value="Thiếu Nhi" /><label for="f-thieu-nhi">Thiếu Nhi</label><span class="count">980</span></label>
       </div>
-    </header>
+      <div class="filter-group">
+        <h4>Khoảng Giá</h4>
+        <div style="display:flex;gap:8px;margin-bottom:10px;">
+          <input type="number" id="price-min" placeholder="Từ" style="flex:1;min-width:0;width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.82rem;" />
+          <input type="number" id="price-max" placeholder="Đến" style="flex:1;min-width:0;width:100%;padding:8px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.82rem;" />
+        </div>
+        <button id="apply-price" class="btn btn--outline" style="width:100%;padding:8px;">Áp dụng</button>
+      </div>
+      <div class="filter-group">
+        <h4>Tác Giả</h4>
+        <label class="filter-option"><input type="checkbox" /><label>Nguyễn Nhật Ánh</label></label>
+        <label class="filter-option"><input type="checkbox" /><label>Paulo Coelho</label></label>
+        <label class="filter-option"><input type="checkbox" /><label>Dale Carnegie</label></label>
+        <label class="filter-option"><input type="checkbox" /><label>Yuval Noah Harari</label></label>
+      </div>
+      <div class="filter-group">
+        <h4>Nhà Xuất Bản</h4>
+        <label class="filter-option"><input type="checkbox" /><label>NXB Trẻ</label></label>
+        <label class="filter-option"><input type="checkbox" /><label>NXB Kim Đồng</label></label>
+        <label class="filter-option"><input type="checkbox" /><label>First News</label></label>
+        <label class="filter-option"><input type="checkbox" /><label>Alpha Books</label></label>
+      </div>
+      <div class="filter-group">
+        <h4>Đánh Giá</h4>
+        <label class="filter-option"><input type="radio" name="rating" /><label>⭐⭐⭐⭐⭐ (5 sao)</label></label>
+        <label class="filter-option"><input type="radio" name="rating" /><label>⭐⭐⭐⭐+ (4+ sao)</label></label>
+        <label class="filter-option"><input type="radio" name="rating" /><label>⭐⭐⭐+ (3+ sao)</label></label>
+      </div>
+      <button id="reset-filters" class="btn btn--ghost" style="width:100%;">Xóa Bộ Lọc</button>
+    </aside>
 
-    <main class="catalog-layout">
-      <aside class="filters card">
-        <h3>Bộ lọc đa chiều</h3>
-        <label
-          >Thể loại
-          <select id="genreFilter"></select>
-        </label>
-        <label
-          >Tác giả
-          <select id="authorFilter"></select>
-        </label>
-        <label
-          >Nhà xuất bản
-          <select id="publisherFilter"></select>
-        </label>
-        <label
-          >Giá tối đa (VND)
-          <input
-            id="priceFilter"
-            type="range"
-            min="50000"
-            max="500000"
-            step="10000"
-            value="500000"
-          />
-          <small id="priceValue">500.000</small>
-        </label>
-        <label
-          >Đánh giá sao
-          <select id="ratingFilter">
-            <option value="0">Tất cả</option>
-            <option value="5">5 sao</option>
-            <option value="4">Từ 4 sao</option>
-            <option value="3">Từ 3 sao</option>
-          </select>
-        </label>
-      </aside>
-
-      <section class="catalog-content">
-        <div class="catalog-tools card">
-          <div>
-            <label
-              >Sắp xếp
-              <select id="sortFilter">
-                <option value="popular">Phổ biến</option>
-                <option value="priceAsc">Giá tăng dần</option>
-                <option value="priceDesc">Giá giảm dần</option>
-                <option value="newest">Mới nhất</option>
-              </select>
-            </label>
-          </div>
+    <!-- MAIN CONTENT -->
+    <div>
+      <div class="catalog-header">
+        <h1>Tất Cả Sách <span id="result-count" style="font-size:1rem;color:var(--text-muted);font-family:var(--font-body);font-weight:400;"></span></h1>
+        <div class="catalog-controls">
           <div class="view-toggle">
-            <button id="gridBtn" class="btn small primary">Grid</button>
-            <button id="listBtn" class="btn small">List</button>
+            <button class="view-btn active" id="grid-view" title="Dạng lưới">⊞</button>
+            <button class="view-btn" id="list-view" title="Dạng danh sách">☰</button>
           </div>
-        </div>
-        <div id="catalogBooks" class="book-grid"></div>
-        <div id="catalogPagination" class="catalog-pagination"></div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-grid">
-        <div>
-          <h4>📖 BookVerse</h4>
-          <p>
-            Kho sách đa thể loại, giá tốt mỗi ngày, giao nhanh và hỗ trợ tận
-            tâm.
-          </p>
-          <div class="social-row">
-            <a href="#" aria-label="Facebook">f</a>
-            <a href="#" aria-label="Instagram">i</a>
-            <a href="#" aria-label="YouTube">▶</a>
-          </div>
-        </div>
-        <div>
-          <h4>Liên kết nhanh</h4>
-          <div class="footer-links">
-            <a href="index.html">Trang chủ</a>
-            <a href="catalog.html">Danh mục sách</a>
-            <a href="promotions.html">Khuyến mãi</a>
-            <a href="search.html">Tìm kiếm</a>
-            <a href="blog.html">Blog review</a>
-            <a href="login.html">Đăng nhập</a>
-          </div>
-        </div>
-        <div>
-          <h4>Hỗ trợ khách hàng</h4>
-          <div class="footer-links">
-            <a href="#">Chính sách đổi trả</a>
-            <a href="#">Phương thức thanh toán</a>
-            <a href="#">Câu hỏi thường gặp</a>
-            <a href="cart.html">Theo dõi đơn hàng</a>
-          </div>
+          <select id="sort-select" class="sort-select">
+            <option value="default">Mặc định</option>
+            <option value="price-asc">Giá tăng dần</option>
+            <option value="price-desc">Giá giảm dần</option>
+            <option value="rating">Đánh giá cao nhất</option>
+            <option value="newest">Mới nhất</option>
+          </select>
         </div>
       </div>
-      <div class="footer-bottom">© 2026 BookVerse. All rights reserved.</div>
-    </footer>
 
-    <script src="assets/js/data.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/catalog.js"></script>
-  </body>
+      <div class="books-grid" id="catalog-grid"></div>
+
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__bottom">
+      <p>© 2025 Tủ Sách Vàng. Bảo lưu mọi quyền.</p>
+      <div class="payment-icons">
+        <span class="payment-icon">VNPAY</span><span class="payment-icon">MoMo</span><span class="payment-icon">COD</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/search.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  Cart.updateUI();
+  document.getElementById('cart-btn')?.addEventListener('click', Cart.openCart);
+  document.getElementById('close-cart')?.addEventListener('click', Cart.closeCart);
+  document.getElementById('cart-overlay')?.addEventListener('click', Cart.closeCart);
+
+  const header = document.getElementById('main-header');
+  window.addEventListener('scroll', () => header?.classList.toggle('scrolled', window.scrollY > 20));
+
+  const observer = new IntersectionObserver(entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')), { threshold: 0.1 });
+
+  let filtered = [...BOOKS], currentPage = 1, perPage = 8, isGrid = true;
+
+  function createCard(book) {
+    const disc = book.originalPrice ? Math.round((1 - book.price/book.originalPrice)*100) : 0;
+    const stars = '★'.repeat(Math.floor(book.rating));
+    if (!isGrid) {
+      return `<div class="book-card" style="flex-direction:row;height:auto;">
+        <div class="book-card__cover-wrap" style="width:120px;height:150px;flex-shrink:0;">
+          <div class="book-card__cover-inner"><div class="book-card__img">${book.emoji}</div></div>
+        </div>
+        <div class="book-card__info" style="flex:1;">
+          <span class="book-card__cat">${book.cat}</span>
+          <a href="book-detail.html?id=${book.id}" class="book-card__title" style="font-size:1.1rem;">${book.title}</a>
+          <span class="book-card__author">${book.author}</span>
+          <div class="book-card__rating"><span class="stars">${stars}</span><span class="rating-count">(${book.reviews.toLocaleString()})</span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:auto;">
+            <div class="book-card__price"><span class="price-current">${book.price.toLocaleString('vi-VN')}₫</span>${book.originalPrice?`<span class="price-original">${book.originalPrice.toLocaleString('vi-VN')}₫</span>`:''}</div>
+            <button class="btn btn--gold" style="padding:8px 16px;font-size:0.85rem;" onclick="Cart.add(${book.id})">+ Giỏ Hàng</button>
+          </div>
+        </div>
+      </div>`;
+    }
+    return `<div class="book-card aos-fade-up">
+      <div class="book-card__cover-wrap">
+        <div class="book-card__cover-inner"><div class="book-card__img">${book.emoji}</div></div>
+        <div class="book-card__shadow"></div>
+        ${book.badge ? `<span class="book-card__badge book-card__badge--${book.badge==='new'?'new':'sale'}">${book.badge==='bestseller'?'BEST':book.badge==='new'?'MỚI':`-${disc}%`}</span>` : ''}
+        <button class="book-card__wishlist" onclick="toggleWishlist(this,${book.id})">♡</button>
+        <div class="book-card__actions">
+          <button class="btn btn--gold" onclick="Cart.add(${book.id})">+ Giỏ</button>
+          <a href="book-detail.html?id=${book.id}" class="btn btn--ghost">Xem</a>
+        </div>
+      </div>
+      <div class="book-card__info">
+        <span class="book-card__cat">${book.cat}</span>
+        <a href="book-detail.html?id=${book.id}" class="book-card__title">${book.title}</a>
+        <span class="book-card__author">${book.author}</span>
+        <div class="book-card__rating"><span class="stars">${stars}</span><span class="rating-count">(${book.reviews.toLocaleString()})</span></div>
+        <div class="book-card__price">
+          <span class="price-current">${book.price.toLocaleString('vi-VN')}₫</span>
+          ${book.originalPrice?`<span class="price-original">${book.originalPrice.toLocaleString('vi-VN')}₫</span>`:''}
+          ${disc?`<span class="price-discount">-${disc}%</span>`:''}
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function render() {
+    const grid = document.getElementById('catalog-grid');
+    const start = (currentPage - 1) * perPage;
+    const page = filtered.slice(start, start + perPage);
+    grid.style.display = isGrid ? 'grid' : 'flex';
+    if (!isGrid) grid.style.flexDirection = 'column';
+    grid.innerHTML = page.map(createCard).join('');
+    grid.querySelectorAll('.aos-fade-up').forEach(e => observer.observe(e));
+    document.getElementById('result-count').textContent = `(${filtered.length} sách)`;
+    renderPagination();
+  }
+
+  function renderPagination() {
+    const pages = Math.ceil(filtered.length / perPage);
+    const pg = document.getElementById('pagination');
+    if (pages <= 1) { pg.innerHTML = ''; return; }
+    let html = `<button class="page-btn" ${currentPage===1?'disabled':''} onclick="changePage(${currentPage-1})">‹</button>`;
+    for (let i = 1; i <= pages; i++) {
+      html += `<button class="page-btn ${i===currentPage?'active':''}" onclick="changePage(${i})">${i}</button>`;
+    }
+    html += `<button class="page-btn" ${currentPage===pages?'disabled':''} onclick="changePage(${currentPage+1})">›</button>`;
+    pg.innerHTML = html;
+  }
+
+  window.changePage = (p) => { currentPage = p; render(); window.scrollTo({top:200,behavior:'smooth'}); };
+
+  document.getElementById('sort-select')?.addEventListener('change', e => {
+    const v = e.target.value;
+    if (v === 'price-asc') filtered.sort((a,b) => a.price - b.price);
+    else if (v === 'price-desc') filtered.sort((a,b) => b.price - a.price);
+    else if (v === 'rating') filtered.sort((a,b) => b.rating - a.rating);
+    else filtered = [...BOOKS];
+    currentPage = 1; render();
+  });
+
+  document.getElementById('grid-view')?.addEventListener('click', () => {
+    isGrid = true;
+    document.getElementById('grid-view').classList.add('active');
+    document.getElementById('list-view').classList.remove('active');
+    document.getElementById('catalog-grid').style.gridTemplateColumns = '';
+    render();
+  });
+  document.getElementById('list-view')?.addEventListener('click', () => {
+    isGrid = false;
+    document.getElementById('list-view').classList.add('active');
+    document.getElementById('grid-view').classList.remove('active');
+    render();
+  });
+
+  document.querySelectorAll('.filter-option input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', applyFilters);
+  });
+  document.getElementById('reset-filters')?.addEventListener('click', () => {
+    document.querySelectorAll('.filter-option input').forEach(i => i.checked = false);
+    document.getElementById('price-min').value = '';
+    document.getElementById('price-max').value = '';
+    filtered = [...BOOKS]; currentPage = 1; render();
+  });
+  document.getElementById('apply-price')?.addEventListener('click', applyFilters);
+
+  function applyFilters() {
+    const cats = [...document.querySelectorAll('.filter-option input[type="checkbox"]:checked')].map(c => c.value).filter(Boolean);
+    const minVal = document.getElementById('price-min').value;
+    const maxVal = document.getElementById('price-max').value;
+    const min = minVal !== '' ? parseInt(minVal) : 0;
+    const max = maxVal !== '' ? parseInt(maxVal) : Infinity;
+    filtered = BOOKS.filter(b => {
+      const catOk = cats.length === 0 || cats.includes(b.cat);
+      const priceOk = b.price >= min && b.price <= max;
+      return catOk && priceOk;
+    });
+    currentPage = 1; render();
+  }
+
+  // Check URL params
+  const params = new URLSearchParams(location.search);
+  if (params.get('cat')) {
+    const catMap = {'van-hoc':'Văn Học','kinh-te':'Kinh Tế','khoa-hoc':'Khoa Học','tam-ly':'Tâm Lý Học','thieu-nhi':'Thiếu Nhi'};
+    const cat = catMap[params.get('cat')];
+    if (cat) { filtered = BOOKS.filter(b => b.cat === cat); }
+  }
+
+  render();
+
+  const wishlist = JSON.parse(localStorage.getItem('tsv_wishlist') || '[]');
+  window.toggleWishlist = (btn, id) => {
+    const idx = wishlist.indexOf(id);
+    if (idx === -1) { wishlist.push(id); btn.textContent = '♥'; btn.classList.add('active'); showToast('info','❤️ Đã thêm yêu thích!',''); }
+    else { wishlist.splice(idx,1); btn.textContent = '♡'; btn.classList.remove('active'); }
+    localStorage.setItem('tsv_wishlist', JSON.stringify(wishlist));
+  };
+});
+</script>
+</body>
 </html>

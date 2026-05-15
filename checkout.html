@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thanh Toán — Tủ Sách Vàng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+<div id="toast-container" class="toast-container"></div>
+
+<header id="main-header" class="header scrolled">
+  <div class="container header__inner" style="justify-content:center;">
+    <a href="index.html" class="logo"><span class="logo__icon">📚</span><span class="logo__text">Tủ Sách <em>Vàng</em></span></a>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div class="checkout-layout">
+      
+      <!-- FORM SECTION -->
+      <form id="checkout-form">
+        <div class="checkout-section">
+          <h3>Thông Tin Giao Hàng</h3>
+          <div class="form-row">
+            <div class="form-group"><label>Họ và tên</label><input type="text" required /></div>
+            <div class="form-group"><label>Số điện thoại</label><input type="tel" required /></div>
+          </div>
+          <div class="form-group"><label>Email</label><input type="email" required /></div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Tỉnh/Thành phố</label>
+              <select required>
+                <option value="">Chọn Tỉnh/Thành</option>
+                <option value="hcm">Hồ Chí Minh</option>
+                <option value="hn">Hà Nội</option>
+                <option value="dn">Đà Nẵng</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Quận/Huyện</label>
+              <select required><option value="">Chọn Quận/Huyện</option><option value="q1">Quận 1</option></select>
+            </div>
+          </div>
+          <div class="form-group"><label>Địa chỉ cụ thể (Số nhà, đường...)</label><input type="text" required /></div>
+          <div class="form-group"><label>Ghi chú đơn hàng (Tùy chọn)</label><textarea rows="3"></textarea></div>
+        </div>
+
+        <div class="checkout-section">
+          <h3>Phương Thức Thanh Toán</h3>
+          <div class="payment-methods">
+            <label class="payment-option selected">
+              <input type="radio" name="payment" value="cod" checked />
+              <span class="payment-option__logo">💵</span>
+              <span class="payment-option__name">Thanh toán khi nhận hàng (COD)</span>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="vnpay" />
+              <span class="payment-option__logo">💳</span>
+              <span class="payment-option__name">Thanh toán qua VNPAY</span>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="momo" />
+              <span class="payment-option__logo">📱</span>
+              <span class="payment-option__name">Ví MoMo</span>
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn--gold btn--full" style="padding:18px;font-size:1.1rem;margin-top:20px;">Xác Nhận Đặt Hàng</button>
+      </form>
+
+      <!-- ORDER SUMMARY -->
+      <aside class="order-summary" style="top:120px;">
+        <h3>Đơn Hàng Của Bạn</h3>
+        <div id="checkout-items" style="margin-bottom:24px;max-height:300px;overflow-y:auto;padding-right:10px;"></div>
+        
+        <div class="summary-row"><span>Tạm tính</span><span id="co-subtotal">0₫</span></div>
+        <div class="summary-row"><span>Phí vận chuyển</span><span id="co-shipping">30.000₫</span></div>
+        <div class="summary-row summary-row--total"><span>Tổng cộng</span><span id="co-total" style="color:var(--gold);">0₫</span></div>
+      </aside>
+
+    </div>
+  </div>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const items = JSON.parse(localStorage.getItem('tsv_cart') || '[]');
+  if(items.length === 0) {
+    window.location.href = 'cart.html';
+    return;
+  }
+
+  const container = document.getElementById('checkout-items');
+  let subtotal = 0;
+
+  container.innerHTML = items.map(item => {
+    const b = BOOKS.find(b => b.id === item.id);
+    if (!b) return '';
+    subtotal += b.price * item.qty;
+    return `
+      <div style="display:flex;gap:12px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px dashed var(--border);">
+        <div style="width:48px;height:64px;background:var(--surface);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;position:relative;">
+          ${b.emoji}
+          <span style="position:absolute;top:-8px;right:-8px;background:var(--gold);color:#000;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;">${item.qty}</span>
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:0.85rem;color:var(--text);font-weight:500;">${b.title}</div>
+          <div style="font-size:0.8rem;color:var(--gold);margin-top:4px;">${(b.price * item.qty).toLocaleString('vi-VN')}₫</div>
+        </div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('co-subtotal').textContent = subtotal.toLocaleString('vi-VN') + '₫';
+  const shipping = subtotal > 299000 ? 0 : 30000;
+  document.getElementById('co-shipping').textContent = shipping === 0 ? 'Miễn phí' : '30.000₫';
+  if(shipping === 0) document.getElementById('co-shipping').style.color = 'var(--accent-green)';
+  document.getElementById('co-total').textContent = (subtotal + shipping).toLocaleString('vi-VN') + '₫';
+
+  // Payment UI
+  document.querySelectorAll('.payment-option input').forEach(input => {
+    input.addEventListener('change', () => {
+      document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+      input.closest('.payment-option').classList.add('selected');
+    });
+  });
+
+  // Submit
+  document.getElementById('checkout-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('tsv_cart');
+    document.body.innerHTML = `
+      <div style="height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);color:var(--text);text-align:center;">
+        <div style="font-size:5rem;margin-bottom:20px;animation:fadeUp 0.6s forwards;">🎉</div>
+        <h1 style="font-family:var(--font-display);color:var(--gold);margin-bottom:10px;animation:fadeUp 0.6s 0.2s forwards;opacity:0;">Đặt Hàng Thành Công!</h1>
+        <p style="color:var(--text-muted);margin-bottom:30px;animation:fadeUp 0.6s 0.4s forwards;opacity:0;">Cảm ơn bạn đã mua sắm tại Tủ Sách Vàng. Đơn hàng sẽ sớm được giao.</p>
+        <a href="index.html" class="btn btn--gold" style="animation:fadeUp 0.6s 0.6s forwards;opacity:0;">Về Trang Chủ</a>
+      </div>
+    `;
+  });
+});
+</script>
+</body>
+</html>

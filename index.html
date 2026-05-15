@@ -1,182 +1,353 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BookVerse - Cửa hàng sách</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="assets/css/styles.css" />
-  </head>
-  <body class="home-page">
-    <header class="header glass">
-      <a class="logo" href="index.html" aria-label="BookVerse">
-        <img src="img/branding/bookverse-logo.svg" alt="" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tủ Sách Vàng — Nhà Sách Trực Tuyến Cao Cấp</title>
+  <meta name="description" content="Tủ Sách Vàng — Khám phá hàng ngàn đầu sách chất lượng cao. Sách văn học, khoa học, kinh tế, thiếu nhi và nhiều thể loại khác." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+
+<!-- ===== TOAST NOTIFICATION ===== -->
+<div id="toast-container" class="toast-container"></div>
+
+<!-- ===== MINI CART OVERLAY ===== -->
+<div id="cart-overlay" class="cart-overlay"></div>
+<aside id="mini-cart" class="mini-cart">
+  <div class="mini-cart__header">
+    <h3>Giỏ Hàng</h3>
+    <button id="close-cart" class="mini-cart__close" aria-label="Đóng giỏ hàng">✕</button>
+  </div>
+  <div id="cart-items" class="mini-cart__items"></div>
+  <div class="mini-cart__footer">
+    <div class="mini-cart__total">
+      <span>Tổng cộng</span>
+      <span id="cart-total">0₫</span>
+    </div>
+    <a href="checkout.html" class="btn btn--primary btn--full">Thanh Toán</a>
+    <a href="cart.html" class="btn btn--outline btn--full">Xem Giỏ Hàng</a>
+  </div>
+</aside>
+
+<!-- ===== LIVE SEARCH OVERLAY ===== -->
+<div id="search-overlay" class="search-overlay">
+  <div class="search-overlay__inner">
+    <div class="search-overlay__box">
+      <span class="search-overlay__icon">⌕</span>
+      <input type="text" id="search-input" placeholder="Tìm kiếm sách, tác giả, thể loại..." autocomplete="off" />
+      <button id="close-search" aria-label="Đóng tìm kiếm">✕</button>
+    </div>
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
+
+<!-- ===== NAVIGATION ===== -->
+<header id="main-header" class="header">
+  <div class="container header__inner">
+    <a href="index.html" class="logo">
+      <span class="logo__icon">📚</span>
+      <span class="logo__text">Tủ Sách <em>Vàng</em></span>
+    </a>
+    <nav class="nav" id="main-nav">
+      <a href="index.html" class="nav__link active">Trang Chủ</a>
+      <a href="catalog.html" class="nav__link">Danh Mục</a>
+      <a href="blog.html" class="nav__link">Blog Sách</a>
+      <a href="account.html" class="nav__link">Tài Khoản</a>
+    </nav>
+    <div class="header__actions">
+      <button id="search-btn" class="icon-btn" aria-label="Tìm kiếm">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+      <a href="auth.html" class="icon-btn" aria-label="Tài khoản">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       </a>
-      <nav class="nav">
-        <a href="index.html" class="active">🏠 Trang chủ</a>
-        <a href="catalog.html">🛍️ Danh mục</a>
-        <a href="promotions.html">🎁 Khuyến mãi</a>
-        <a href="blog.html">📰 Blog</a>
-        <a href="login.html">👤 Đăng nhập</a>
-      </nav>
-      <div class="header-actions">
-        <div class="search-box">
-          <input
-            id="globalSearch"
-            type="text"
-            placeholder="Tìm theo tên sách, tác giả, ISBN..."
-          />
-          <span class="search-icon">🔍</span>
-          <div id="searchSuggest" class="search-suggest"></div>
-        </div>
-        <a class="cart-btn" href="cart.html"
-          >🛒 Giỏ hàng <span id="cartCount">0</span></a
-        >
-      </div>
-    </header>
+      <button id="cart-btn" class="icon-btn cart-icon-btn" aria-label="Giỏ hàng">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span id="cart-count" class="cart-count">0</span>
+      </button>
+      <button id="menu-toggle" class="icon-btn menu-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
 
-    <main>
-      <section class="hero">
-        <div class="hero-content">
-          <p class="pill">Nhà sách trực tuyến hiện đại</p>
-          <h1>Đọc sách hay mỗi ngày<br />Nhận ưu đãi mới mỗi tuần</h1>
-          <p>
-            Hàng ngàn đầu sách chất lượng, giao nhanh toàn quốc, theo dõi đơn
-            hàng realtime.
-          </p>
-          <div class="hero-cta">
-            <a href="catalog.html" class="btn primary">Mua ngay</a>
-            <a href="blog.html" class="btn">Khám phá blog</a>
-          </div>
-        </div>
-        <div class="hero-card float">
-          <h3>Flash Sale 48h</h3>
-          <p>Giảm tối đa 50% cho combo sách kỹ năng và kinh doanh.</p>
-          <small>Kết thúc sau: <span id="countdown">47:59:59</span></small>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-head">
-          <h2>🔥 Sách nổi bật & Bestseller</h2>
-          <a href="catalog.html">Xem tất cả</a>
-        </div>
-        <p class="section-sub">
-          Tuyển chọn những đầu sách được mua nhiều và đánh giá cao trong tuần
-          này.
-        </p>
-        <div class="carousel-wrap">
-          <button
-            class="carousel-btn left"
-            data-target="featuredBooks"
-            aria-label="Cuộn trái"
-          >
-            ❮
-          </button>
-          <div id="featuredBooks" class="book-grid carousel-track"></div>
-          <button
-            class="carousel-btn right"
-            data-target="featuredBooks"
-            aria-label="Cuộn phải"
-          >
-            ❯
-          </button>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-head">
-          <h2>✨ Danh mục phổ biến</h2>
-        </div>
-        <div class="category-icons">
-          <a href="catalog.html?genre=Văn+học">📚 Văn học</a>
-          <a href="catalog.html?genre=Kinh+tế">💼 Kinh tế</a>
-          <a href="catalog.html?genre=Khoa+học">🔬 Khoa học</a>
-          <a href="catalog.html?genre=Thiếu+nhi">🧸 Thiếu nhi</a>
-          <a href="catalog.html?genre=Tiểu+sử">🧠 Tiểu sử</a>
-          <a href="catalog.html?genre=Tâm+lý">💡 Tâm lý</a>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-head">
-          <h2>🆕 Sách mới ra mắt</h2>
-        </div>
-        <p class="section-sub">
-          Khám phá các tựa sách mới nhất, cập nhật liên tục từ nhiều nhà xuất
-          bản.
-        </p>
-        <div class="carousel-wrap">
-          <button
-            class="carousel-btn left"
-            data-target="newBooks"
-            aria-label="Cuộn trái"
-          >
-            ❮
-          </button>
-          <div id="newBooks" class="book-grid carousel-track"></div>
-          <button
-            class="carousel-btn right"
-            data-target="newBooks"
-            aria-label="Cuộn phải"
-          >
-            ❯
-          </button>
-        </div>
-      </section>
-
-      <section class="section testimonials">
-        <div class="section-head">
-          <h2>💬 Khách hàng nói gì về BookVerse</h2>
-        </div>
-        <div id="reviews" class="review-grid"></div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-grid">
-        <div>
-          <h4>📖 BookVerse</h4>
-          <p>
-            Nhà sách trực tuyến với hàng ngàn đầu sách hay, giao nhanh toàn quốc
-            và nhiều ưu đãi hấp dẫn mỗi tuần.
-          </p>
-          <div class="social-row">
-            <a href="#" aria-label="Facebook">f</a>
-            <a href="#" aria-label="Instagram">i</a>
-            <a href="#" aria-label="YouTube">▶</a>
-          </div>
-        </div>
-        <div>
-          <h4>Liên kết nhanh</h4>
-          <div class="footer-links">
-            <a href="index.html">Trang chủ</a>
-            <a href="catalog.html">Danh mục sách</a>
-            <a href="promotions.html">Khuyến mãi</a>
-            <a href="search.html">Tìm kiếm</a>
-            <a href="blog.html">Blog review</a>
-            <a href="login.html">Đăng nhập</a>
-          </div>
-        </div>
-        <div>
-          <h4>Hỗ trợ khách hàng</h4>
-          <div class="footer-links">
-            <a href="#">Chính sách đổi trả</a>
-            <a href="#">Phương thức thanh toán</a>
-            <a href="#">Câu hỏi thường gặp</a>
-            <a href="cart.html">Theo dõi đơn hàng</a>
-          </div>
+<!-- ===== HERO SLIDER ===== -->
+<section class="hero" id="hero">
+  <div class="hero__slider" id="hero-slider">
+    <div class="hero__slide active" style="--bg: url('img/hero1.png')">
+      <div class="hero__overlay"></div>
+      <div class="container hero__content">
+        <span class="hero__tag">Bộ Sưu Tập Mới 2025</span>
+        <h1 class="hero__title">Hành Trình<br/><em>Tri Thức</em> Bắt Đầu<br/>Từ Một Trang Sách</h1>
+        <p class="hero__sub">Khám phá hơn 50,000 đầu sách từ các tác giả trong và ngoài nước</p>
+        <div class="hero__cta">
+          <a href="catalog.html" class="btn btn--gold">Khám Phá Ngay</a>
+          <a href="#new-arrivals" class="btn btn--ghost">Sách Mới Nhất</a>
         </div>
       </div>
-      <div class="footer-bottom">© 2026 BookVerse. All rights reserved.</div>
-    </footer>
+    </div>
+    <div class="hero__slide" style="--bg: url('img/hero2.png')">
+      <div class="hero__overlay"></div>
+      <div class="container hero__content">
+        <span class="hero__tag">Góc Đọc Sách</span>
+        <h1 class="hero__title">Mỗi Cuốn Sách<br/>Là Một <em>Thế Giới</em><br/>Chờ Được Khám Phá</h1>
+        <p class="hero__sub">Sách văn học, kinh tế, khoa học — tất cả tại một nơi</p>
+        <div class="hero__cta">
+          <a href="catalog.html" class="btn btn--gold">Xem Bestseller</a>
+          <a href="blog.html" class="btn btn--ghost">Đọc Review Sách</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero__slide" style="--bg: url('img/hero3.png')">
+      <div class="hero__overlay"></div>
+      <div class="container hero__content">
+        <span class="hero__tag">Ưu Đãi Đặc Biệt</span>
+        <h1 class="hero__title">Giảm Đến <em>50%</em><br/>Toàn Bộ Sách<br/>Bestseller</h1>
+        <p class="hero__sub">Chương trình khuyến mãi có hạn — Đặt hàng ngay hôm nay</p>
+        <div class="hero__cta">
+          <a href="catalog.html?filter=sale" class="btn btn--gold">Mua Ngay</a>
+          <a href="#promotions" class="btn btn--ghost">Xem Ưu Đãi</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero__controls">
+    <button class="hero__prev" id="hero-prev" aria-label="Slide trước">‹</button>
+    <div class="hero__dots" id="hero-dots">
+      <button class="hero__dot active"></button>
+      <button class="hero__dot"></button>
+      <button class="hero__dot"></button>
+    </div>
+    <button class="hero__next" id="hero-next" aria-label="Slide tiếp">›</button>
+  </div>
+</section>
 
-    <script src="assets/js/data.js"></script>
-    <script src="assets/js/main.js"></script>
-  </body>
+<!-- ===== MARQUEE STRIP ===== -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>📚 Miễn phí vận chuyển đơn từ 299K</span>
+    <span>⭐ Hơn 50,000 đầu sách</span>
+    <span>🔖 Giảm 15% đơn hàng đầu tiên</span>
+    <span>📦 Giao hàng trong 24h tại Hà Nội &amp; TP.HCM</span>
+    <span>💎 Thành viên VIP ưu đãi mỗi ngày</span>
+    <span>📚 Miễn phí vận chuyển đơn từ 299K</span>
+    <span>⭐ Hơn 50,000 đầu sách</span>
+    <span>🔖 Giảm 15% đơn hàng đầu tiên</span>
+    <span>📦 Giao hàng trong 24h tại Hà Nội &amp; TP.HCM</span>
+    <span>💎 Thành viên VIP ưu đãi mỗi ngày</span>
+  </div>
+</div>
+
+<!-- ===== CATEGORIES ===== -->
+<section class="section categories-section">
+  <div class="container">
+    <div class="section-header aos-fade-up">
+      <span class="section-tag">Danh Mục</span>
+      <h2>Khám Phá Theo <em>Thể Loại</em></h2>
+    </div>
+    <div class="categories-grid">
+      <a href="catalog.html?cat=van-hoc" class="category-card aos-fade-up" style="--delay:0.1s">
+        <div class="category-card__icon">📖</div>
+        <h3>Văn Học</h3>
+        <span>1,200+ sách</span>
+      </a>
+      <a href="catalog.html?cat=kinh-te" class="category-card aos-fade-up" style="--delay:0.2s">
+        <div class="category-card__icon">💼</div>
+        <h3>Kinh Tế</h3>
+        <span>850+ sách</span>
+      </a>
+      <a href="catalog.html?cat=khoa-hoc" class="category-card aos-fade-up" style="--delay:0.3s">
+        <div class="category-card__icon">🔬</div>
+        <h3>Khoa Học</h3>
+        <span>640+ sách</span>
+      </a>
+      <a href="catalog.html?cat=tam-ly" class="category-card aos-fade-up" style="--delay:0.4s">
+        <div class="category-card__icon">🧠</div>
+        <h3>Tâm Lý Học</h3>
+        <span>420+ sách</span>
+      </a>
+      <a href="catalog.html?cat=thieu-nhi" class="category-card aos-fade-up" style="--delay:0.5s">
+        <div class="category-card__icon">🌟</div>
+        <h3>Thiếu Nhi</h3>
+        <span>980+ sách</span>
+      </a>
+      <a href="catalog.html?cat=lich-su" class="category-card aos-fade-up" style="--delay:0.6s">
+        <div class="category-card__icon">🏛️</div>
+        <h3>Lịch Sử</h3>
+        <span>380+ sách</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NEW ARRIVALS ===== -->
+<section class="section" id="new-arrivals">
+  <div class="container">
+    <div class="section-header aos-fade-up">
+      <span class="section-tag">Mới Nhất</span>
+      <h2>Sách Mới <em>Vừa Về</em></h2>
+      <a href="catalog.html?sort=newest" class="section-more">Xem tất cả →</a>
+    </div>
+    <div class="books-grid" id="new-books-grid">
+      <!-- JS populated -->
+    </div>
+  </div>
+</section>
+
+<!-- ===== BESTSELLERS ===== -->
+<section class="section section--dark" id="bestsellers">
+  <div class="container">
+    <div class="section-header aos-fade-up">
+      <span class="section-tag">Bestseller</span>
+      <h2>Bán Chạy <em>Nhất Tuần</em></h2>
+      <a href="catalog.html?sort=bestseller" class="section-more">Xem tất cả →</a>
+    </div>
+    <div class="books-grid" id="bestseller-grid">
+      <!-- JS populated -->
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROMOTIONS BANNER ===== -->
+<section class="section promo-section" id="promotions">
+  <div class="container">
+    <div class="promo-grid">
+      <div class="promo-card promo-card--large aos-fade-up">
+        <div class="promo-card__content">
+          <span class="promo-badge">FLASH SALE</span>
+          <h3>Giảm 40%<br/>Sách Văn Học</h3>
+          <p>Chỉ còn 24 giờ</p>
+          <a href="catalog.html?filter=sale&cat=van-hoc" class="btn btn--gold">Mua Ngay</a>
+        </div>
+        <div class="promo-card__countdown" id="countdown"></div>
+      </div>
+      <div class="promo-stack">
+        <div class="promo-card promo-card--small aos-fade-up" style="--delay:0.2s">
+          <span class="promo-badge promo-badge--blue">MỚI</span>
+          <h4>Combo 3 Sách<br/>Chỉ 199K</h4>
+          <a href="catalog.html?filter=combo">Xem ngay →</a>
+        </div>
+        <div class="promo-card promo-card--small aos-fade-up" style="--delay:0.3s">
+          <span class="promo-badge promo-badge--green">MIỄN PHÍ</span>
+          <h4>Ship Toàn Quốc<br/>Đơn Từ 299K</h4>
+          <a href="catalog.html">Mua sắm →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURED AUTHOR ===== -->
+<section class="section author-section">
+  <div class="container">
+    <div class="author-feature aos-fade-up">
+      <div class="author-feature__text">
+        <span class="section-tag">Tác Giả Nổi Bật</span>
+        <h2>Nguyễn Nhật <em>Ánh</em></h2>
+        <p class="author-quote">"Đọc sách là một cuộc phiêu lưu không bao giờ kết thúc..."</p>
+        <p>Tác giả của hàng loạt tác phẩm kinh điển, người bạn đồng hành của biết bao thế hệ độc giả Việt Nam.</p>
+        <a href="catalog.html?author=nguyen-nhat-anh" class="btn btn--outline">Xem Tác Phẩm</a>
+      </div>
+      <div class="author-feature__books" id="author-books">
+        <!-- JS populated -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BLOG PREVIEW ===== -->
+<section class="section section--dark blog-section">
+  <div class="container">
+    <div class="section-header aos-fade-up">
+      <span class="section-tag">Blog Sách</span>
+      <h2>Điểm Sách & <em>Review</em></h2>
+      <a href="blog.html" class="section-more">Xem tất cả →</a>
+    </div>
+    <div class="blog-grid" id="blog-grid">
+      <!-- JS populated -->
+    </div>
+  </div>
+</section>
+
+<!-- ===== NEWSLETTER ===== -->
+<section class="section newsletter-section">
+  <div class="container">
+    <div class="newsletter-box aos-fade-up">
+      <div class="newsletter-box__text">
+        <h2>Đăng Ký Nhận <em>Tin Mới</em></h2>
+        <p>Nhận thông báo sách mới, ưu đãi độc quyền mỗi tuần</p>
+      </div>
+      <form class="newsletter-form" id="newsletter-form">
+        <input type="email" id="newsletter-email" placeholder="Nhập email của bạn..." required />
+        <button type="submit" class="btn btn--gold">Đăng Ký</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="logo">
+          <span class="logo__icon">📚</span>
+          <span class="logo__text">Tủ Sách <em>Vàng</em></span>
+        </a>
+        <p>Không gian sách dành cho những tâm hồn yêu tri thức và văn chương.</p>
+        <div class="footer__social">
+          <a href="#" aria-label="Facebook" class="social-btn">f</a>
+          <a href="#" aria-label="Instagram" class="social-btn">in</a>
+          <a href="#" aria-label="YouTube" class="social-btn">yt</a>
+          <a href="#" aria-label="TikTok" class="social-btn">tk</a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4>Danh Mục</h4>
+        <a href="catalog.html?cat=van-hoc">Văn Học</a>
+        <a href="catalog.html?cat=kinh-te">Kinh Tế</a>
+        <a href="catalog.html?cat=khoa-hoc">Khoa Học</a>
+        <a href="catalog.html?cat=tam-ly">Tâm Lý Học</a>
+        <a href="catalog.html?cat=thieu-nhi">Thiếu Nhi</a>
+      </div>
+      <div class="footer__col">
+        <h4>Hỗ Trợ</h4>
+        <a href="#">Chính Sách Đổi Trả</a>
+        <a href="#">Hướng Dẫn Đặt Hàng</a>
+        <a href="#">Phương Thức Thanh Toán</a>
+        <a href="#">Theo Dõi Đơn Hàng</a>
+        <a href="#">Liên Hệ</a>
+      </div>
+      <div class="footer__col">
+        <h4>Liên Hệ</h4>
+        <p>📍 123 Đinh Tiên Hoàng, Q.1, TP.HCM</p>
+        <p>📞 1800-1234 (Miễn phí)</p>
+        <p>✉️ hello@tusachvang.vn</p>
+        <p>🕐 8:00 - 22:00 mỗi ngày</p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2025 Tủ Sách Vàng. Bảo lưu mọi quyền.</p>
+      <div class="payment-icons">
+        <span class="payment-icon">VNPAY</span>
+        <span class="payment-icon">MoMo</span>
+        <span class="payment-icon">VISA</span>
+        <span class="payment-icon">COD</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/search.js"></script>
+<script src="js/main.js"></script>
+</body>
 </html>

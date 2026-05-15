@@ -1,123 +1,186 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tài khoản người dùng - BookVerse</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="assets/css/styles.css" />
-  </head>
-  <body>
-    <header class="header glass">
-      <a class="logo" href="index.html" aria-label="BookVerse">
-        <img src="img/branding/bookverse-logo.svg" alt="" />
-      </a>
-      <nav class="nav">
-        <a href="index.html">🏠 Trang chủ</a>
-        <a href="catalog.html">🛍️ Danh mục</a>
-        <a href="promotions.html">🎁 Khuyến mãi</a>
-        <a href="blog.html">📰 Blog</a>
-        <a href="account.html" class="active">👤 Tài khoản</a>
-      </nav>
-      <div class="header-actions">
-        <div class="search-box">
-          <input
-            id="globalSearch"
-            type="text"
-            placeholder="Tìm theo tên sách, tác giả, ISBN..."
-          />
-          <span class="search-icon">🔍</span>
-          <div id="searchSuggest" class="search-suggest"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tài Khoản — Tủ Sách Vàng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+<div id="toast-container" class="toast-container"></div>
+<div id="search-overlay" class="search-overlay">
+  <div class="search-overlay__inner">
+    <div class="search-overlay__box">
+      <span class="search-overlay__icon">⌕</span>
+      <input type="text" id="search-input" placeholder="Tìm kiếm sách..." autocomplete="off" />
+      <button id="close-search">✕</button>
+    </div>
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
+
+<header id="main-header" class="header scrolled">
+  <div class="container header__inner">
+    <a href="index.html" class="logo"><span class="logo__icon">📚</span><span class="logo__text">Tủ Sách <em>Vàng</em></span></a>
+    <nav class="nav" id="main-nav">
+      <a href="index.html" class="nav__link">Trang Chủ</a>
+      <a href="catalog.html" class="nav__link">Danh Mục</a>
+      <a href="blog.html" class="nav__link">Blog Sách</a>
+      <a href="account.html" class="nav__link active">Tài Khoản</a>
+    </nav>
+    <div class="header__actions">
+      <button id="search-btn" class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
+      <a href="cart.html" class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div class="account-layout">
+      <!-- SIDEBAR -->
+      <aside class="account-sidebar">
+        <div class="account-avatar">👤</div>
+        <div class="account-name">Nguyễn Văn A</div>
+        <div class="account-email">nguyenvana@example.com</div>
+        
+        <nav class="account-nav">
+          <a href="#" class="account-nav-link active" data-tab="orders">📦 Lịch Sử Đơn Hàng</a>
+          <a href="#" class="account-nav-link" data-tab="wishlist">❤️ Sách Yêu Thích</a>
+          <a href="#" class="account-nav-link" data-tab="profile">⚙️ Cài Đặt Tài Khoản</a>
+          <a href="#" class="account-nav-link" style="color:var(--accent);margin-top:20px;">🚪 Đăng Xuất</a>
+        </nav>
+      </aside>
+
+      <!-- CONTENT -->
+      <div class="account-content">
+        
+        <!-- ORDERS TAB -->
+        <div id="tab-orders" class="account-panel">
+          <h2 style="font-family:var(--font-display);font-size:1.6rem;color:var(--text);margin-bottom:24px;">Lịch Sử Đơn Hàng</h2>
+          
+          <div class="order-card">
+            <div class="order-card__header">
+              <span class="order-id">Đơn hàng #TSV-8492</span>
+              <span class="order-status order-status--shipped">Đang Giao</span>
+            </div>
+            <div style="display:flex;gap:12px;margin-bottom:16px;">
+              <div style="width:50px;height:70px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:1.5rem;border-radius:4px;">📕</div>
+              <div style="width:50px;height:70px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:1.5rem;border-radius:4px;">📘</div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:16px;">
+              <div style="font-size:0.85rem;color:var(--text-muted);">Ngày đặt: 15/05/2025</div>
+              <div style="font-size:1.1rem;color:var(--gold);font-weight:600;">280.000₫</div>
+            </div>
+          </div>
+
+          <div class="order-card">
+            <div class="order-card__header">
+              <span class="order-id">Đơn hàng #TSV-7310</span>
+              <span class="order-status order-status--done">Đã Giao</span>
+            </div>
+            <div style="display:flex;gap:12px;margin-bottom:16px;">
+              <div style="width:50px;height:70px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:1.5rem;border-radius:4px;">📙</div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:16px;">
+              <div style="font-size:0.85rem;color:var(--text-muted);">Ngày đặt: 02/05/2025</div>
+              <div style="font-size:1.1rem;color:var(--gold);font-weight:600;">95.000₫</div>
+            </div>
+          </div>
         </div>
-        <a class="cart-btn" href="cart.html"
-          >🛒 Giỏ hàng <span id="cartCount">0</span></a
-        >
+
+        <!-- WISHLIST TAB -->
+        <div id="tab-wishlist" class="account-panel" style="display:none;">
+          <h2 style="font-family:var(--font-display);font-size:1.6rem;color:var(--text);margin-bottom:24px;">Sách Yêu Thích</h2>
+          <div class="books-grid" id="wishlist-grid" style="grid-template-columns:repeat(3,1fr);"></div>
+        </div>
+
+        <!-- PROFILE TAB -->
+        <div id="tab-profile" class="account-panel" style="display:none;">
+          <h2 style="font-family:var(--font-display);font-size:1.6rem;color:var(--text);margin-bottom:24px;">Cài Đặt Tài Khoản</h2>
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px;max-width:500px;">
+            <div class="form-group"><label>Họ và tên</label><input type="text" value="Nguyễn Văn A" style="width:100%;" /></div>
+            <div class="form-group"><label>Email</label><input type="email" value="nguyenvana@example.com" disabled style="width:100%;opacity:0.6;" /></div>
+            <div class="form-group"><label>Số điện thoại</label><input type="tel" value="0901234567" style="width:100%;" /></div>
+            
+            <hr style="border:none;border-top:1px solid var(--border);margin:24px 0;" />
+            
+            <h4 style="margin-bottom:16px;color:var(--text);">Đổi Mật Khẩu</h4>
+            <div class="form-group"><label>Mật khẩu hiện tại</label><input type="password" style="width:100%;" /></div>
+            <div class="form-group"><label>Mật khẩu mới</label><input type="password" style="width:100%;" /></div>
+            
+            <button class="btn btn--gold" style="margin-top:16px;width:100%;" onclick="showToast('success','Cập nhật thành công!','Thông tin đã được lưu.')">Lưu Thay Đổi</button>
+          </div>
+        </div>
+
       </div>
-    </header>
+    </div>
+  </div>
+</main>
 
-    <main class="section">
-      <h1>Trang tài khoản</h1>
-      <div class="account-layout">
-        <section class="card profile-card">
-          <h3 id="userGreeting">Xin chào, Nguyễn Văn A</h3>
-          <p>Thành viên Vàng • 2.450 điểm thưởng</p>
-          <div class="auth-buttons">
-            <button class="btn primary">Đăng xuất</button>
+<footer class="footer">
+  <div class="container">
+    <div class="footer__bottom"><p>© 2025 Tủ Sách Vàng.</p></div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/search.js"></script>
+<script src="js/cart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Tabs
+  document.querySelectorAll('.account-nav-link[data-tab]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelectorAll('.account-nav-link').forEach(l => l.classList.remove('active'));
+      document.querySelectorAll('.account-panel').forEach(p => p.style.display = 'none');
+      
+      link.classList.add('active');
+      document.getElementById('tab-' + link.dataset.tab).style.display = 'block';
+      
+      if(link.dataset.tab === 'wishlist') renderWishlist();
+    });
+  });
+
+  // Render Wishlist
+  function renderWishlist() {
+    const w = JSON.parse(localStorage.getItem('tsv_wishlist') || '[]');
+    const grid = document.getElementById('wishlist-grid');
+    if (w.length === 0) {
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted);">Danh sách yêu thích trống.</div>';
+      return;
+    }
+    const html = w.map(id => {
+      const b = BOOKS.find(b => b.id === id);
+      if (!b) return '';
+      return `
+        <div class="book-card">
+          <div class="book-card__cover-wrap" style="height:200px;">
+            <div class="book-card__cover-inner"><div class="book-card__img">${b.emoji}</div></div>
+            <button class="book-card__wishlist active" onclick="removeFromWishlist(${b.id})" style="color:var(--accent);">✕</button>
           </div>
-        </section>
-
-        <section class="card wide">
-          <h3>Thông tin cá nhân</h3>
-          <input value="Nguyễn Văn A" />
-          <input value="nguyenvana@gmail.com" />
-          <button class="btn primary">Cập nhật</button>
-        </section>
-
-        <section class="card">
-          <h3>Địa chỉ đã lưu</h3>
-          <ul>
-            <li>123 Nguyễn Trãi, Q1, TP.HCM</li>
-            <li>22 Trần Phú, Hải Châu, Đà Nẵng</li>
-          </ul>
-        </section>
-
-        <section class="card wide">
-          <h3>Lịch sử đơn hàng</h3>
-          <div id="orderTimeline"></div>
-        </section>
-
-        <section class="card wide">
-          <h3>Wishlist</h3>
-          <div id="wishlistBooks" class="book-grid compact"></div>
-        </section>
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-grid">
-        <div>
-          <h4>📖 BookVerse</h4>
-          <p>
-            Kho sách đa thể loại, giá tốt mỗi ngày, giao nhanh và hỗ trợ tận
-            tâm.
-          </p>
-          <div class="social-row">
-            <a href="#" aria-label="Facebook">f</a>
-            <a href="#" aria-label="Instagram">i</a>
-            <a href="#" aria-label="YouTube">▶</a>
+          <div class="book-card__info" style="padding:16px;">
+            <a href="book-detail.html?id=${b.id}" class="book-card__title" style="font-size:0.95rem;">${b.title}</a>
+            <div class="price-current" style="margin-top:8px;">${b.price.toLocaleString('vi-VN')}₫</div>
+            <button class="btn btn--outline" style="width:100%;margin-top:12px;padding:8px;" onclick="Cart.add(${b.id})">Thêm Giỏ Hàng</button>
           </div>
-        </div>
-        <div>
-          <h4>Liên kết nhanh</h4>
-          <div class="footer-links">
-            <a href="index.html">Trang chủ</a>
-            <a href="catalog.html">Danh mục sách</a>
-            <a href="promotions.html">Khuyến mãi</a>
-            <a href="search.html">Tìm kiếm</a>
-            <a href="blog.html">Blog review</a>
-            <a href="account.html">Tài khoản</a>
-          </div>
-        </div>
-        <div>
-          <h4>Hỗ trợ khách hàng</h4>
-          <div class="footer-links">
-            <a href="#">Chính sách đổi trả</a>
-            <a href="#">Phương thức thanh toán</a>
-            <a href="#">Câu hỏi thường gặp</a>
-            <a href="cart.html">Theo dõi đơn hàng</a>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">© 2026 BookVerse. All rights reserved.</div>
-    </footer>
+        </div>`;
+    }).join('');
+    grid.innerHTML = html;
+  }
 
-    <script src="assets/js/data.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/account.js"></script>
-  </body>
+  window.removeFromWishlist = (id) => {
+    let w = JSON.parse(localStorage.getItem('tsv_wishlist') || '[]');
+    w = w.filter(x => x !== id);
+    localStorage.setItem('tsv_wishlist', JSON.stringify(w));
+    renderWishlist();
+  };
+});
+</script>
+</body>
 </html>
